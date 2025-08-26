@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es-CO">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>soporte tiquete - Formulario</title>
+  </head>
+  <body>
+    <div class="container">
+      <section>
+        <div class="simple-container">
+          <span class="content">
+            <div class="background-pattern"></div>
+            <span class="content-form">
+              <img src="/assets/logo-header.png" width="290" alt="logo" />
+
+              <h1>Supticket</h1>
+              <p>
+                Bienvenido(a), registre y envíe su problema para dar una
+                solución
+              </p>
+
+              <form class="ticket-form">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Asunto..."
+                  class="subject-input"
+                />
+                <span class="body-area">
+                  <textarea
+                    id="body"
+                    name="body"
+                    placeholder="Describa su problema..."
+                    class="body-input"
+                  ></textarea>
+
+                  <button class="attach-btn" title="Mín. 500KB">📎</button>
+                  <span class="attach-note">Mín. 500KB</span>
+                </span>
+
+                <div class="actions">
+                  <button class="btn btn-secondary">Limpiar</button>
+                  <button class="btn btn-primary">Enviar</button>
+                </div>
+              </form>
+            </span>
+          </span>
+        </div>
+        <button class="float-btn">☰</button>
+      </section>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
