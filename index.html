@@ -7,50 +7,30 @@
     <title>soporte tiquete - Formulario</title>
   </head>
   <body>
+    <div class="grid-pattern"></div>
     <div class="container">
-      <section>
-        <div class="simple-container">
-          <span class="content">
-            <div class="background-pattern"></div>
-            <span class="content-form">
-              <img src="/assets/logo-header.png" width="290" alt="logo" />
+      <header class="hero">
+        <img
+          src="/assets/logo-header.png"
+          alt="Aplicación SENA - Soporte de Tickets"
+          loading="eager"
+          class="hero-logo"
+        />
+        <span class="hero-title">
+          <h1>Bienvenido(a)</h1>
+        </span>
+        <p class="hero-description">Registra tu incidencia.</p>
 
-              <h1>Supticket</h1>
-              <p>
-                Bienvenido(a), registre y envíe su problema para dar una
-                solución
-              </p>
+        <span>
+          <button class="btn-ticket" id="open-modal">Abre tu ticket</button>
 
-              <form class="ticket-form">
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Asunto..."
-                  class="subject-input"
-                />
-                <span class="body-area">
-                  <textarea
-                    id="body"
-                    name="body"
-                    placeholder="Describa su problema..."
-                    class="body-input"
-                  ></textarea>
+          <dialog>
+            <button id="close-modal" aria-label="Cerrar" autofocus>X</button>
 
-                  <button class="attach-btn" title="Mín. 500KB">📎</button>
-                  <span class="attach-note">Mín. 500KB</span>
-                </span>
-
-                <div class="actions">
-                  <button class="btn btn-secondary">Limpiar</button>
-                  <button class="btn btn-primary">Enviar</button>
-                </div>
-              </form>
-            </span>
-          </span>
-        </div>
-        <button class="float-btn">☰</button>
-      </section>
+            <form></form>
+          </dialog>
+        </span>
+      </header>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
