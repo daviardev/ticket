@@ -8,52 +8,51 @@
 :root {
   font-family: 'Google Sans Flex';
 
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #2a2a2a;
-  --bg-tertiary: #3a3a3a;
+  --bg-primary: #000000;
+  --bg-secondary: #0f0f11;
+  --bg-tertiary: #101012;
 
-  --text-primary: #e0e0e0;
-  --text-secondary: #a0a0a0;
-  --text-accent: #8a9ba8;
+  --text-primary: #e4e2e5;
+  --text-secondary: #c3c9db;
+  --text-accent: #7e7c7b;
 
-  --border-color: #404040;
-
-  --accent-color: #6b7280;
-  --accent-hover: #5b6370;
+  --button-color: #ffffff;
+  --accent-color: #000000;
+  --accent-hover: #ebebeb;
 
   --grid-color: rgba(160, 160, 160, 0.05);
-
-  --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
 [data-theme='blue'] {
-  --bg-primary: #1a1d23;
-  --bg-secondary: #252a32;
-  --bg-tertiary: #303641;
+  --bg-primary: #10131c;
+  --bg-secondary: #181b24;
+  --bg-tertiary: #191b24;
 
-  --text-primary: #e8eaed;
-  --text-secondary: #b0b0c0;
-  --text-accent: #7a9cc6;
+  --text-primary: #e1e2ee;
+  --text-secondary: #c1cfff;
+  --text-accent: #3f97ff;
 
-  --accent-color: #5a7ba7;
-  --accent-hover: #4a6b97;
+  --button-color: #b3c5ff;
+  --accent-color: #002b75;
+  --accent-hover: #a5b9f4;
 
-  --grid-color: rgba(176, 184, 192, 0.05);
+  --grid-color: #1e202a;
 }
 
 [data-theme='purple'] {
-  --bg-primary: #1f1a23;
-  --bg-secondary: #2a252e;
-  --bg-tertiary: #35303a;
+  --bg-primary: #15121d;
+  --bg-secondary: #1e1a25;
+  --bg-tertiary: #1e1a25;
 
-  --text-primary: #e8e6ea;
-  --text-secondary: #b8b0c0;
-  --text-accent: #a08bb8;
+  --text-primary: #e8dff0;
+  --text-secondary: #dcc9ff;
+  --text-accent: #851b8e;
 
-  --accent-color: #8a7ba0;
-  --accent-hover: #8a6b90;
+  --button-color: #d2bcff;
+  --accent-color: #69008e;
+  --accent-hover: #c7adf6;
 
-  --grid-color: rgba(184, 176, 192, 0.05);
+  --grid-color: #231f2b;
 }
 
 [data-theme='green'] {
@@ -148,7 +147,7 @@ body {
 
 .hero-description {
   font-size: 1.5rem;
-  color: var(--text-accent);
+  color: var(--text-secondary);
   margin-bottom: 2rem;
   line-height: 1.6;
   max-width: 500px;
@@ -181,14 +180,13 @@ body {
 }
 
 .btn-ticket {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
+  background-color: var(--button-color);
+  color: var(--accent-color);
   border: none;
   padding: 0.5rem 1.5rem;
   font-size: 1.25rem;
   border-radius: 0.3rem;
   cursor: pointer;
-  box-shadow: 0 4px 8px var(--shadow-color);
   transition: background-color 0.3s ease-out;
 
   &:hover {
