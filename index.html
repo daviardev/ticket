@@ -114,6 +114,49 @@
         </div>
       </div>
     </div>
-    <script type="module" src="/src/main.js"></script>
+    <!-- Bottom nav for tablet & mobile (visible via CSS media queries) -->
+    <div class="bottom-nav" role="navigation" aria-label="Acciones">
+      <button class="ticket-app" title="Ir al dashboard GLPI">
+        <!-- reuse svg from ticket button -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          stroke="currentColor"
+          stroke-width="0"
+        >
+          <path fill="none" stroke="none" d="M0 0h24v24H0z" />
+          <path
+            d="M11 21H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h6v18zm2 0h6c1.1 0 2-.9 2-2v-7h-8v9zm8-11V5c0-1.1-.9-2-2-2h-6v7h8z"
+          />
+        </svg>
+      </button>
+
+      <button
+        class="theme-toggle"
+        title="Cambiar tema"
+        data-mobile-toggle
+        onclick="toggleThemeSelector()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9m8 0v4m2-2h-4" />
+        </svg>
+      </button>
+      <div class="mobile-theme-palette" aria-hidden="true">
+        <button class="theme-option" data-theme="default"></button>
+        <button class="theme-option" data-theme="blue"></button>
+        <button class="theme-option" data-theme="purple"></button>
+        <button class="theme-option" data-theme="green"></button>
+        <button class="theme-option" data-theme="red"></button>
+        <button class="theme-option" data-theme="orange"></button>
+      </div>
+    </div>
+    <script type="module" src="./src/js/main.js"></script>
   </body>
 </html>

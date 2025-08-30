@@ -1,73 +1,146 @@
 export async function toggleDialog(id) {
   const viewTransitionClass = 'vt-element-animation'
   const viewTransitionClassClosing = 'vt-element-animation-closing'
+  // Helper: check if view transitions are supported
+  const supportsVT = typeof document.startViewTransition === 'function'
 
+  // Helper to safely get the currently open dialog or element
+  function getOpenDialog() {
+    // Some browsers set the dialog `open` property but not the attribute; prefer property check
+    const byAttr = document.querySelector('dialog[open]')
+    if (byAttr) return byAttr
+    const dialogs = Array.from(document.querySelectorAll('dialog'))
+    return dialogs.find((d) => d.open) || null
+  }
+
+  // If no id -> close any open dialog
   if (!id) {
-    const openDialogs = document.querySelector('dialog[open]')
+    const openDialogs = getOpenDialog()
     const originE = document.querySelector('[origin-element]')
+    if (!openDialogs) return
 
-    openDialogs.style.viewTransitionName = 'vt-shared'
-    openDialogs.style.viewTransitionClass = viewTransitionClassClosing
+    // If view transitions supported, use them, else fallback to CSS animation + close
+    if (supportsVT) {
+      openDialogs.style.viewTransitionName = 'vt-shared'
+      openDialogs.style.viewTransitionClass = viewTransitionClassClosing
 
-    const vt = document.startViewTransition(() => {
-      originE.style.viewTransitionName = 'vt-shared'
-      originE.style.viewTransitionClass = viewTransitionClassClosing
+      const vt = document.startViewTransition(() => {
+        if (originE) {
+          originE.style.viewTransitionName = 'vt-shared'
+          originE.style.viewTransitionClass = viewTransitionClassClosing
+        }
+        openDialogs.style.viewTransitionName = ''
+        openDialogs.style.viewTransitionClass = ''
+        openDialogs.close()
+      })
 
-      openDialogs.style.viewTransitionName = ''
-      openDialogs.style.viewTransitionClass = ''
+      try {
+        await vt.finished
+      } catch {
+        // ignore
+      }
 
+      if (originE) {
+        originE.style.viewTransitionName = ''
+        originE.style.viewTransitionClass = ''
+      }
+
+      return
+    }
+
+    // Fallback for browsers without view-transitions (eg. Firefox)
+    openDialogs.classList.add('vt-fallback-out')
+    // when animation ends, close and cleanup
+    let closed = false
+    const onEnd = () => {
+      if (closed) return
+      closed = true
       openDialogs.close()
-    })
+      openDialogs.classList.remove('vt-fallback-out')
+    }
+    openDialogs.addEventListener('animationend', onEnd, { once: true })
+    // Timeout fallback in case animationend is not fired
+    setTimeout(() => {
+      if (closed) return
+      try {
+        openDialogs.close()
+      } catch {
+        openDialogs.removeAttribute('open')
+      }
+      openDialogs.classList.remove('vt-fallback-out')
+    }, 400)
 
-    await vt.finished
-
-    originE.style.viewTransitionName = ''
-    originE.style.viewTransitionClass = ''
-
-    return // Cierra cualquier diálogo abierto si no se pasa id
+    return
   }
 
   const dialog = document.getElementById(id)
-
-  const originE = event.currentTarget
-
-  dialog.style.viewTransitionName = 'vt-shared'
-  dialog.style.viewTransitionClass = viewTransitionClass
-
-  originE.style.viewTransitionName = 'vt-shared'
-  originE.style.viewTransitionClass = viewTransitionClass
-  originE.setAttribute('origin-element', '')
-
-  const vt = document.startViewTransition(() => {
-    originE.style.viewTransitionName = ''
-    originE.style.viewTransitionClass = ''
-    dialog.showModal()
-  })
-
-  await vt.finished
-
-  dialog.style.viewTransitionClass = ''
-  dialog.style.viewTransitionName = ''
-
   if (!dialog) {
     console.warn(`toggledialog: no se encontró dialog con id="${id}"`)
     return
   }
 
-  if (typeof dialog.showModal === 'function') {
+  // Determine origin element more safely: try event.currentTarget, fallback to a data attribute or first .btn
+  let originE
+  try {
+    originE =
+      (typeof event !== 'undefined' && event.currentTarget) ||
+      document.querySelector('[origin-element]') ||
+      document.querySelector('.btn')
+  } catch {
+    originE = document.querySelector('.btn')
+  }
+
+  if (supportsVT) {
+    dialog.style.viewTransitionName = 'vt-shared'
+    dialog.style.viewTransitionClass = viewTransitionClass
+
+    if (originE) {
+      originE.style.viewTransitionName = 'vt-shared'
+      originE.style.viewTransitionClass = viewTransitionClass
+      originE.setAttribute('origin-element', '')
+    }
+
+    const vt = document.startViewTransition(() => {
+      if (originE) {
+        originE.style.viewTransitionName = ''
+        originE.style.viewTransitionClass = ''
+      }
+      try {
+        dialog.showModal()
+      } catch {
+        // ignore here; below we handle fallback
+      }
+    })
+
     try {
-      dialog.showModal()
-    } catch (err) {
-      // En algunos navegadores o estados puede lanzar; fallback seguro:
-      console.warn(
-        'toggleDialog: showModal falló, usando atributo open como fallback',
-        err
-      )
+      await vt.finished
+    } catch {
+      // ignore
+    }
+
+    dialog.style.viewTransitionClass = ''
+    dialog.style.viewTransitionName = ''
+  } else {
+    // Fallback: use CSS animations for open. Ensure dialog is visible and animate.
+    dialog.classList.add('vt-fallback-in')
+    try {
+      if (typeof dialog.showModal === 'function') dialog.showModal()
+      else dialog.setAttribute('open', '')
+    } catch {
+      // If showModal throws, fallback to open attribute
       dialog.setAttribute('open', '')
     }
-  } else {
-    // Fallback si no existe showModal (viejos navegadores)
-    dialog.setAttribute('open', '')
+    // remove class after animation completes
+    let opened = false
+    const onEndOpen = () => {
+      if (opened) return
+      opened = true
+      dialog.classList.remove('vt-fallback-in')
+    }
+    dialog.addEventListener('animationend', onEndOpen, { once: true })
+    setTimeout(() => {
+      if (!opened) dialog.classList.remove('vt-fallback-in')
+    }, 500)
   }
 }
 

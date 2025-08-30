@@ -102,6 +102,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 100)
 })
 
+// Forwarder: make secondary buttons reuse the primary toggle logic
+export function forwardThemeToggle() {
+  const primary = document.querySelector('.theme-toggle')
+  if (primary) {
+    // trigger the same click handler the primary toggle uses
+    primary.click()
+    return true
+  }
+  // fallback: toggle directly
+  toggleThemeSelector()
+  return false
+}
+
+if (typeof window !== 'undefined')
+  window.forwardThemeToggle = forwardThemeToggle
+
 const additionalStyles = `
     .theme-option.active {
         border-color: var(--accent-color) !important;
@@ -118,3 +134,63 @@ const additionalStyles = `
 const styleSheet = document.createElement('style')
 styleSheet.textContent = additionalStyles
 document.head.appendChild(styleSheet)
+
+// Mobile palette behavior: toggle the .mobile-theme-palette from the bottom-nav
+document.addEventListener('DOMContentLoaded', () => {
+  const mobileToggle = document.querySelector('[data-mobile-toggle]')
+  const mobilePalette = document.querySelector('.mobile-theme-palette')
+
+  if (!mobileToggle || !mobilePalette) return
+
+  function openMobilePalette() {
+    mobilePalette.classList.add('open')
+    // mark bottom-nav as open for CSS hooks
+    const bottom = mobileToggle.closest('.bottom-nav')
+    if (bottom) bottom.classList.add('open')
+  }
+
+  function closeMobilePalette() {
+    mobilePalette.classList.remove('open')
+    const bottom = mobileToggle.closest('.bottom-nav')
+    if (bottom) bottom.classList.remove('open')
+  }
+
+  mobileToggle.addEventListener('click', (e) => {
+    e.stopPropagation()
+    if (mobilePalette.classList.contains('open')) closeMobilePalette()
+    else openMobilePalette()
+  })
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (
+      !e.target.closest('.mobile-theme-palette') &&
+      !e.target.closest('[data-mobile-toggle]')
+    ) {
+      closeMobilePalette()
+    }
+  })
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMobilePalette()
+  })
+
+  // Apply theme when an option inside mobile palette is clicked
+  mobilePalette.addEventListener('click', (e) => {
+    const btn = e.target.closest('.theme-option')
+    if (!btn) return
+    const theme = btn.dataset.theme
+    if (!theme) return
+    // apply theme using existing exported function if available, else do minimal
+    try {
+      // call the class-based ThemeManager via a global forwarder if present
+      const primary = document.querySelector('.theme-toggle')
+      if (primary) primary.click()
+    } catch {
+      document.documentElement.setAttribute('data-theme', theme)
+      localStorage.setItem('ticketdesk-theme', theme)
+    }
+    closeMobilePalette()
+  })
+})

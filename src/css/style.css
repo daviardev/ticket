@@ -1,186 +1,13 @@
-@import './css/font.css';
-@import './css/reset.css';
-@import './css/normalize.css';
-@import './css/reset-html.css';
+@import './font.css';
+@import './reset.css';
+@import './normalize.css';
+@import './reset-html.css';
 
-@import './css/animation.css';
+@import './theme.css';
+@import './animation.css';
+@import './view-transition.css';
 
-:root {
-  font-family: 'Google Sans Flex';
-
-  --bg-primary: #000000;
-  --bg-secondary: #0f0f11;
-  --bg-tertiary: #101012;
-
-  --text-primary: #e4e2e5;
-  --text-secondary: #c3c9db;
-  --text-accent: #7e7c7b;
-
-  --button-color: #ffffff;
-  --accent-color: #000000;
-  --accent-hover: #ebebeb;
-
-  --button-secondary: #f0edf5;
-  --button-secondary-hover: #eeebf4;
-
-  --grid-color: rgba(160, 160, 160, 0.05);
-
-  --close-button: #ffffff;
-}
-
-:root {
-  view-transition-name: none;
-}
-::view-transition {
-  pointer-events: none;
-}
-::view-transition-group(.vt-element-animation),
-::view-transition-group(.vt-element-animation-closing) {
-  animation-duration: 500ms;
-  animation-timing-function: cubic-bezier(0.38, 0.49, 0, 1);
-}
-::view-transition-old(.vt-element-animation),
-::view-transition-new(.vt-element-animation),
-::view-transition-old(.vt-element-animation-closing),
-::view-transition-new(.vt-element-animation-closing) {
-  height: 100%;
-  width: 100%;
-  overflow: clip;
-  object-position: left top;
-}
-
-@keyframes vt-fade-in {
-  from {
-    opacity: 0;
-  }
-}
-
-@keyframes vt-fade-out {
-  to {
-    opacity: 0;
-  }
-}
-
-::view-transition-old(.vt-element-animation) {
-  animation: vt-fade-out 200ms both cubic-bezier(0.38, 0.49, 0, 1);
-}
-
-::view-transition-new(.vt-element-animation) {
-  animation: vt-fade-in 200ms both cubic-bezier(0.38, 0.49, 0, 1);
-}
-
-::view-transition-old(.vt-element-animation-closing) {
-  animation: vt-fade-out 200ms both cubic-bezier(0.75, 0, 0.41, -0.06);
-}
-
-::view-transition-new(.vt-element-animation-closing) {
-  animation: vt-fade-in 200ms both cubic-bezier(0.75, 0, 0.41, -0.06);
-}
-
-[data-theme='blue'] {
-  --bg-primary: #10131c;
-  --bg-secondary: #181b24;
-  --bg-tertiary: #191b24;
-
-  --text-primary: #e1e2ee;
-  --text-secondary: #c1cfff;
-  --text-accent: #3f97ff;
-
-  --button-color: #b3c5ff;
-  --accent-color: #002b75;
-  --accent-hover: #a5b9f4;
-
-  --button-secondary: #0b5ce3;
-  --button-secondary-hover: #1b66e4;
-
-  --grid-color: #1e202a;
-
-  --close-button: #c5c5d9;
-}
-
-[data-theme='purple'] {
-  --bg-primary: #15121d;
-  --bg-secondary: #1e1a25;
-  --bg-tertiary: #1e1a25;
-
-  --text-primary: #e8dff0;
-  --text-secondary: #dcc9ff;
-  --text-accent: #851b8e;
-
-  --button-color: #d2bcff;
-  --accent-color: #69008e;
-  --accent-hover: #c7adf6;
-
-  --button-secondary: #6e08e9;
-  --button-secondary-hover: #7617e9;
-
-  --grid-color: #231f2b;
-
-  --close-button: #ccc2d9;
-}
-
-[data-theme='green'] {
-  --bg-primary: #0e150f;
-  --bg-secondary: #161c17;
-  --bg-tertiary: #161d17;
-
-  --text-primary: #dde5da;
-  --text-secondary: #a5dcad;
-  --text-accent: #869486;
-
-  --button-color: #9fffb3;
-  --accent-color: #08421f;
-  --accent-hover: #93efa7;
-
-  --button-secondary: #4ac079;
-  --button-secondary-hover: #58cc85;
-
-  --grid-color: #1c231d;
-
-  --close-button: #bccaba;
-}
-
-[data-theme='red'] {
-  --bg-primary: #1e0f0e;
-  --bg-secondary: #261515;
-  --bg-tertiary: #271716;
-
-  --text-primary: #fadcd8;
-  --text-secondary: #ffc8c2;
-  --text-accent: #ab8985;
-
-  --button-color: #ffb4ac;
-  --accent-color: #271716;
-  --accent-hover: #f3a6a0;
-
-  --button-secondary: #d0363c;
-  --button-secondary-hover: #d24148;
-
-  --grid-color: #301e1c;
-
-  --close-button: #e4beb9;
-}
-
-[data-theme='orange'] {
-  --bg-primary: #1b110a;
-  --bg-secondary: #231811;
-  --bg-tertiary: #241912;
-
-  --text-primary: #f3dfd2;
-  --text-secondary: #ffcaa6;
-  --text-accent: #9c8475;
-
-  --button-color: #ffbc8d;
-  --accent-color: #6a3c16;
-  --accent-hover: #e4a682;
-
-  --button-secondary: #e97e1e;
-  --button-secondary-hover: #e9842b;
-
-  --grid-color: #271c15;
-
-  --close-button: #ddc1af;
-}
+@import '../custom.css';
 
 * {
   margin: 0;
@@ -210,6 +37,29 @@ dialog {
 
   &::backdrop {
     backdrop-filter: blur(0.3rem);
+  }
+}
+
+dialog.vt-opening {
+  animation: vt-dialog-in 260ms cubic-bezier(0.38, 0.49, 0, 1) both;
+}
+
+dialog.vt-closing {
+  animation: vt-dialog-out 200ms cubic-bezier(0.75, 0, 0.41, -0.06) both;
+}
+
+/* When view-transitions are not supported, we'll use the fallback animations above. */
+@supports not (view-transition-name: none) {
+  ::view-transition {
+    display: none;
+  }
+  ::view-transition-group {
+    display: none;
+  }
+  /* Ensure dialogs use the fallback animations */
+  dialog[v-open],
+  dialog[open] {
+    will-change: transform, opacity;
   }
 }
 
@@ -274,6 +124,11 @@ body {
   background-size: 24px 24px;
   pointer-events: none;
   z-index: -1;
+}
+
+/* Bottom nav hidden by default on desktop */
+.bottom-nav {
+  display: none;
 }
 
 .container {
@@ -400,12 +255,151 @@ body {
   align-items: center;
   gap: 0.5rem;
   opacity: 0;
-  transition: all 0.3s ease;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease,
+    visibility 220ms;
+  pointer-events: none;
+  z-index: 1001;
+}
 
-  .theme-selector:active .theme-options {
+/* Explicit show rule when selector is active */
+.theme-selector.active .theme-options {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Responsive: mobile & tablet specific adjustments */
+@media (max-width: 1024px) {
+  /* Make dialogs full-screen on tablets and phones */
+  dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    border: none;
+    padding: 0;
+  }
+
+  dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.45);
+    backdrop-filter: none; /* avoid heavy blur on mobile */
+  }
+
+  /* Reduce/disable heavy decorations that can cause lag on mobile */
+  /* Keep `.grid-pattern` visible on the homepage as requested (it's not global).
+     Do not hide it here. */
+
+  .btn-shine,
+  .hero,
+  .hero-logo {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .theme-options {
+    bottom: 60px;
+    right: 0;
+    flex-direction: row;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0.4rem 0.6rem;
+    border-radius: 9999px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(8px);
+  }
+
+  /* Buttons transform into a floating bottom nav */
+  .app,
+  .theme-selector {
+    display: none; /* hide original positioned buttons */
+  }
+
+  /* Bottom nav that contains the two buttons (ticket + theme) */
+  .bottom-nav {
+    position: fixed;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.6rem;
+    padding: 0.3rem;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 9999px;
+    z-index: 1002;
+    align-items: center;
+    backdrop-filter: blur(6px);
+  }
+
+  .bottom-nav .ticket-app,
+  .bottom-nav .theme-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mobile palette container shown above the bottom-nav */
+  .mobile-theme-palette {
+    position: absolute;
+    bottom: calc(100% + 0.6rem);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 9999px;
+    background-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 160ms ease,
+      transform 160ms ease,
+      visibility 160ms;
+    z-index: 1003;
+    align-items: center;
+  }
+
+  .bottom-nav.open .mobile-theme-palette {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Make dialog content scrollable but keep dialog fixed */
+  dialog > * {
+    max-height: calc(100vh - 4rem);
+    overflow: auto;
+  }
+
+  /* Keep grid color; do not override --grid-color here. */
+}
+
+/* Small screens: stack nav full width if needed */
+@media (max-width: 420px) {
+  .bottom-nav {
+    left: 50%;
+    right: auto;
+    width: calc(100% - 2rem);
+    max-width: 480px;
+    transform: translateX(-50%);
+    justify-content: space-between;
+    padding: 0.4rem 0.6rem;
   }
 }
 

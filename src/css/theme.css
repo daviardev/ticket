@@ -1,0 +1,127 @@
+:root {
+  font-family: 'Google Sans Flex';
+
+  --bg-primary: #000000;
+  --bg-secondary: #0f0f11;
+  --bg-tertiary: #101012;
+
+  --text-primary: #e4e2e5;
+  --text-secondary: #c3c9db;
+  --text-accent: #7e7c7b;
+
+  --button-color: #ffffff;
+  --accent-color: #000000;
+  --accent-hover: #ebebeb;
+
+  --button-secondary: #f0edf5;
+  --button-secondary-hover: #eeebf4;
+
+  --grid-color: rgba(160, 160, 160, 0.05);
+
+  --close-button: #ffffff;
+}
+
+[data-theme='blue'] {
+  --bg-primary: #10131c;
+  --bg-secondary: #181b24;
+  --bg-tertiary: #191b24;
+
+  --text-primary: #e1e2ee;
+  --text-secondary: #c1cfff;
+  --text-accent: #3f97ff;
+
+  --button-color: #b3c5ff;
+  --accent-color: #002b75;
+  --accent-hover: #a5b9f4;
+
+  --button-secondary: #0b5ce3;
+  --button-secondary-hover: #1b66e4;
+
+  --grid-color: #1e202a;
+
+  --close-button: #c5c5d9;
+}
+
+[data-theme='purple'] {
+  --bg-primary: #15121d;
+  --bg-secondary: #1e1a25;
+  --bg-tertiary: #1e1a25;
+
+  --text-primary: #e8dff0;
+  --text-secondary: #dcc9ff;
+  --text-accent: #851b8e;
+
+  --button-color: #d2bcff;
+  --accent-color: #69008e;
+  --accent-hover: #c7adf6;
+
+  --button-secondary: #6e08e9;
+  --button-secondary-hover: #7617e9;
+
+  --grid-color: #231f2b;
+
+  --close-button: #ccc2d9;
+}
+
+[data-theme='green'] {
+  --bg-primary: #0e150f;
+  --bg-secondary: #161c17;
+  --bg-tertiary: #161d17;
+
+  --text-primary: #dde5da;
+  --text-secondary: #a5dcad;
+  --text-accent: #869486;
+
+  --button-color: #9fffb3;
+  --accent-color: #08421f;
+  --accent-hover: #93efa7;
+
+  --button-secondary: #4ac079;
+  --button-secondary-hover: #58cc85;
+
+  --grid-color: #1c231d;
+
+  --close-button: #bccaba;
+}
+
+[data-theme='red'] {
+  --bg-primary: #1e0f0e;
+  --bg-secondary: #261515;
+  --bg-tertiary: #271716;
+
+  --text-primary: #fadcd8;
+  --text-secondary: #ffc8c2;
+  --text-accent: #ab8985;
+
+  --button-color: #ffb4ac;
+  --accent-color: #271716;
+  --accent-hover: #f3a6a0;
+
+  --button-secondary: #d0363c;
+  --button-secondary-hover: #d24148;
+
+  --grid-color: #301e1c;
+
+  --close-button: #e4beb9;
+}
+
+[data-theme='orange'] {
+  --bg-primary: #1b110a;
+  --bg-secondary: #231811;
+  --bg-tertiary: #241912;
+
+  --text-primary: #f3dfd2;
+  --text-secondary: #ffcaa6;
+  --text-accent: #9c8475;
+
+  --button-color: #ffbc8d;
+  --accent-color: #6a3c16;
+  --accent-hover: #e4a682;
+
+  --button-secondary: #e97e1e;
+  --button-secondary-hover: #e9842b;
+
+  --grid-color: #271c15;
+
+  --close-button: #ddc1af;
+}
