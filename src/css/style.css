@@ -273,6 +273,12 @@ body {
   pointer-events: auto;
 }
 
+.dialog-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 /* Responsive: mobile & tablet specific adjustments */
 @media (max-width: 1024px) {
   /* Make dialogs full-screen on tablets and phones */
@@ -332,6 +338,7 @@ body {
     transform: translateX(-50%);
     display: flex;
     gap: 0.6rem;
+    justify-content: space-between;
     padding: 0.3rem;
     background-color: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.04);
@@ -398,9 +405,134 @@ body {
     width: calc(100% - 2rem);
     max-width: 480px;
     transform: translateX(-50%);
-    justify-content: space-between;
-    padding: 0.4rem 0.6rem;
   }
+}
+
+/* Ticket form styles */
+.ticket-form {
+  width: 100%;
+  max-width: 720px;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  color: var(--text-primary);
+}
+.ticket-form-header h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+}
+.ticket-form-header p {
+  color: var(--text-accent);
+  font-weight: lighter;
+  margin-bottom: 1rem;
+}
+.ticket-form .field {
+  margin-bottom: 0.75rem;
+}
+.ticket-form label {
+  display: flex;
+  position: relative;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--text-accent);
+}
+.ticket-form input[type='text'],
+.ticket-form textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--grid-color);
+  color: var(--text-primary);
+  border-radius: 0.7rem;
+  outline: none;
+  resize: vertical;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: var(--grid-color);
+  }
+
+  &:focus {
+    background-color: var(--grid-color);
+  }
+}
+.ticket-form input[type='file'] {
+  display: none;
+}
+.field-message .message-wrapper {
+  position: relative;
+}
+.attach-btn {
+  position: absolute;
+  right: 0.45rem;
+  bottom: 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--button-secondary);
+  color: var(--accent-color);
+  border-radius: 9999px;
+  border: 1px solid var(--accent-color);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.attach-btn:hover {
+  transform: scale(1.04);
+}
+.hint {
+  margin-top: 0.35rem;
+  color: var(--text-accent);
+  font-size: 0.85rem;
+}
+.form-actions {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+}
+.btn-primary {
+  background: var(--button-secondary);
+  color: var(--accent-color);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--grid-color);
+}
+
+/* invalid state */
+.invalid {
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.03) inset;
+}
+
+/* Responsive tweaks */
+@media (max-width: 720px) {
+  .ticket-form {
+    padding: 1rem;
+  }
+  .attach-btn {
+    right: 0.35rem;
+    bottom: 0.35rem;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.img-preview {
+  display: inline-block;
+  vertical-align: middle;
+  border: 1px solid var(--grid-color);
+  background: var(--bg-tertiary);
+}
+.form-feedback {
+  margin-top: 0.6rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  min-height: 1.2rem;
+}
+.form-feedback.success {
+  color: var(--button-secondary);
 }
 
 .theme-option {
