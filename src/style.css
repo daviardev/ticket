@@ -20,7 +20,61 @@
   --accent-color: #000000;
   --accent-hover: #ebebeb;
 
+  --button-secondary: #f0edf5;
+  --button-secondary-hover: #eeebf4;
+
   --grid-color: rgba(160, 160, 160, 0.05);
+
+  --close-button: #ffffff;
+}
+
+:root {
+  view-transition-name: none;
+}
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(.vt-element-animation),
+::view-transition-group(.vt-element-animation-closing) {
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.38, 0.49, 0, 1);
+}
+::view-transition-old(.vt-element-animation),
+::view-transition-new(.vt-element-animation),
+::view-transition-old(.vt-element-animation-closing),
+::view-transition-new(.vt-element-animation-closing) {
+  height: 100%;
+  width: 100%;
+  overflow: clip;
+  object-position: left top;
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+::view-transition-old(.vt-element-animation) {
+  animation: vt-fade-out 200ms both cubic-bezier(0.38, 0.49, 0, 1);
+}
+
+::view-transition-new(.vt-element-animation) {
+  animation: vt-fade-in 200ms both cubic-bezier(0.38, 0.49, 0, 1);
+}
+
+::view-transition-old(.vt-element-animation-closing) {
+  animation: vt-fade-out 200ms both cubic-bezier(0.75, 0, 0.41, -0.06);
+}
+
+::view-transition-new(.vt-element-animation-closing) {
+  animation: vt-fade-in 200ms both cubic-bezier(0.75, 0, 0.41, -0.06);
 }
 
 [data-theme='blue'] {
@@ -36,7 +90,12 @@
   --accent-color: #002b75;
   --accent-hover: #a5b9f4;
 
+  --button-secondary: #0b5ce3;
+  --button-secondary-hover: #1b66e4;
+
   --grid-color: #1e202a;
+
+  --close-button: #c5c5d9;
 }
 
 [data-theme='purple'] {
@@ -52,7 +111,12 @@
   --accent-color: #69008e;
   --accent-hover: #c7adf6;
 
+  --button-secondary: #6e08e9;
+  --button-secondary-hover: #7617e9;
+
   --grid-color: #231f2b;
+
+  --close-button: #ccc2d9;
 }
 
 [data-theme='green'] {
@@ -68,7 +132,12 @@
   --accent-color: #08421f;
   --accent-hover: #93efa7;
 
+  --button-secondary: #4ac079;
+  --button-secondary-hover: #58cc85;
+
   --grid-color: #1c231d;
+
+  --close-button: #bccaba;
 }
 
 [data-theme='red'] {
@@ -84,7 +153,12 @@
   --accent-color: #271716;
   --accent-hover: #f3a6a0;
 
+  --button-secondary: #d0363c;
+  --button-secondary-hover: #d24148;
+
   --grid-color: #301e1c;
+
+  --close-button: #e4beb9;
 }
 
 [data-theme='orange'] {
@@ -98,16 +172,45 @@
 
   --button-color: #ffbc8d;
   --accent-color: #6a3c16;
-  --accent-hover: #512702;
+  --accent-hover: #e4a682;
+
+  --button-secondary: #e97e1e;
+  --button-secondary-hover: #e9842b;
 
   --grid-color: #271c15;
+
+  --close-button: #ddc1af;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: all 0.3s ease;
+}
+
+svg {
+  width: 1rem;
+  height: 1rem;
+  fill: var(--accent-color);
+  stroke: var(--accent-color);
+}
+
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 1.1rem;
+  border: 1px solid var(--grid-color);
+  background-color: var(--bg-primary);
+  width: 100%;
+  height: 100%;
+  max-width: 800px;
+  max-height: 600px;
+
+  &::backdrop {
+    backdrop-filter: blur(0.3rem);
+  }
 }
 
 body {
@@ -146,12 +249,8 @@ body {
 }
 
 .btn-shine {
-  transform: translate(-50%, -50%);
   padding: 12px 48px;
-  position: absolute;
-  left: 50%;
-  top: 45.6%;
-  color: var(--text-secondary);
+  color: var(--accent-color);
   background: linear-gradient(to right, #9f9f9f 0, #fff 10%, #868686 20%);
   background-position: 0;
   -webkit-background-clip: text;
@@ -204,10 +303,169 @@ body {
   &:hover {
     background-color: var(--accent-hover);
   }
+}
 
-  & svg {
-    width: 1rem;
-    height: 1rem;
-    fill: var(--accent-color);
+.app {
+  position: fixed;
+  bottom: 2rem;
+  right: 5rem;
+  z-index: 1000;
+}
+
+.ticket-app {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: var(--button-secondary);
+  border: 1px solid var(--accent-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: var(--button-secondary-hover);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--grid-color);
+
+  .dialog-close {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    color: var(--close-button);
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--grid-color);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    & svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: var(--close-button);
+    }
+  }
+}
+
+.theme-selector {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.theme-toggle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: var(--button-color);
+  border: 1px solid var(--accent-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: var(--accent-hover);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.active .theme-options {
+  opacity: 1;
+}
+
+.theme-options {
+  position: absolute;
+  bottom: 50px;
+  right: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+
+  .theme-selector:active .theme-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+.theme-option {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline;
+  border-radius: 9999px;
+  border: 2px solid var(--accent-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &[data-theme='default'] {
+    background-color: #0f0f11;
+    border: 1px solid #000000;
+  }
+
+  &[data-theme='blue'] {
+    background-color: #002b75;
+    border: 1px solid #001f5a;
+  }
+  &[data-theme='purple'] {
+    background-color: #69008e;
+    border: 1px solid #4b0066;
+  }
+  &[data-theme='green'] {
+    background-color: #08421f;
+    border: 1px solid #062d15;
+  }
+  &[data-theme='red'] {
+    background-color: #7a1c1a;
+    border: 1px solid #5c1311;
+  }
+  &[data-theme='orange'] {
+    background-color: #6a3c16;
+    border: 1px solid #4b290e;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .btn-shine {
+      font-size: 0.85rem;
+      padding: 10px 36px;
+      top: 48%;
+    }
+
+    .theme-selector {
+      bottom: 1rem;
+      right: 1rem;
+    }
   }
 }

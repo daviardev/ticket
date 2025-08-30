@@ -17,12 +17,41 @@
           class="hero-logo"
         />
         <span class="hero-title">
+          <span class="btn-shine">Comenta tu caso.</span>
           <h1>Bienvenido(a)</h1>
         </span>
-        <span class="btn-shine">Comenta tu caso.</span>
+
+        <dialog id="send-ticket-modal">
+          <div class="dialog-header">
+            <button
+              class="dialog-close"
+              aria-label="Cerrar"
+              onclick="toggleDialog()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  stroke="none"
+                  d="m289.94 256 95-95A24 24 0 0 0 351 127l-95 95-95-95a24 24 0 0 0-34 34l95 95-95 95a24 24 0 1 0 34 34l95-95 95 95a24 24 0 0 0 34-34z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <form></form>
+        </dialog>
 
         <span>
-          <button class="btn btn-ticket" id="open-modal">
+          <button
+            class="btn btn-ticket"
+            title="Abre tu Ticket"
+            onclick="toggleDialog('send-ticket-modal')"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -35,16 +64,55 @@
                 d="m490.18 181.4-44.13-44.13a20 20 0 0 0-27-1 30.81 30.81 0 0 1-41.68-1.6 30.81 30.81 0 0 1-1.6-41.67 20 20 0 0 0-1-27L330.6 21.82a19.91 19.91 0 0 0-28.13 0l-70.35 70.34a39.87 39.87 0 0 0-9.57 15.5 7.71 7.71 0 0 1-4.83 4.83 39.78 39.78 0 0 0-15.5 9.58l-180.4 180.4a19.91 19.91 0 0 0 0 28.13L66 374.73a20 20 0 0 0 27 1 30.69 30.69 0 0 1 43.28 43.28 20 20 0 0 0 1 27l44.13 44.13a19.91 19.91 0 0 0 28.13 0l180.4-180.4a39.82 39.82 0 0 0 9.58-15.49 7.69 7.69 0 0 1 4.84-4.84 39.84 39.84 0 0 0 15.49-9.57l70.34-70.35a19.91 19.91 0 0 0-.01-28.09zm-228.37-29.65a16 16 0 0 1-22.63 0l-11.51-11.51a16 16 0 0 1 22.63-22.62l11.51 11.5a16 16 0 0 1 0 22.63zm44 44a16 16 0 0 1-22.62 0l-11-11a16 16 0 1 1 22.63-22.63l11 11a16 16 0 0 1 .01 22.66zm44 44a16 16 0 0 1-22.63 0l-11-11a16 16 0 0 1 22.63-22.62l11 11a16 16 0 0 1 .05 22.67zm44.43 44.54a16 16 0 0 1-22.63 0l-11.44-11.5a16 16 0 1 1 22.68-22.57l11.45 11.49a16 16 0 0 1-.01 22.63z"
               />
             </svg>
+
             Abre tu Ticket
           </button>
-
-          <dialog>
-            <button id="close-modal" aria-label="Cerrar" autofocus>X</button>
-
-            <form></form>
-          </dialog>
         </span>
       </header>
+      <div class="app">
+        <button class="ticket-app" title="GLPI" onclick="goToPage()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+          >
+            <path fill="none" stroke="none" d="M0 0h24v24H0z" />
+            <path
+              stroke="none"
+              d="M11 21H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h6v18zm2 0h6c1.1 0 2-.9 2-2v-7h-8v9zm8-11V5c0-1.1-.9-2-2-2h-6v7h8z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="theme-selector">
+        <button
+          class="theme-toggle"
+          title="Cambiar tema"
+          onclick="toggleThemeSelector()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9m8 0v4m2-2h-4" />
+          </svg>
+        </button>
+        <div class="theme-options">
+          <button class="theme-option" data-theme="default"></button>
+          <button class="theme-option" data-theme="blue"></button>
+          <button class="theme-option" data-theme="purple"></button>
+          <button class="theme-option" data-theme="green"></button>
+          <button class="theme-option" data-theme="red"></button>
+          <button class="theme-option" data-theme="orange"></button>
+        </div>
+      </div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
