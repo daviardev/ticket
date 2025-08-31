@@ -60,6 +60,7 @@ export async function toggleDialog(id) {
     }
     openDialogs.addEventListener('animationend', onEnd, { once: true })
     // Timeout fallback in case animationend is not fired
+    // keep a small buffer above the CSS animation (200ms) so it feels snappy
     setTimeout(() => {
       if (closed) return
       try {
@@ -68,7 +69,7 @@ export async function toggleDialog(id) {
         openDialogs.removeAttribute('open')
       }
       openDialogs.classList.remove('vt-fallback-out')
-    }, 400)
+    }, 240)
 
     return
   }
@@ -140,7 +141,7 @@ export async function toggleDialog(id) {
     dialog.addEventListener('animationend', onEndOpen, { once: true })
     setTimeout(() => {
       if (!opened) dialog.classList.remove('vt-fallback-in')
-    }, 500)
+    }, 320)
   }
 }
 

@@ -388,10 +388,12 @@ body {
     pointer-events: auto;
   }
 
-  /* Make dialog content scrollable but keep dialog fixed */
+  /* Make dialog content fit the viewport and avoid internal scrolls.
+     The form uses a column flex layout so the textarea can expand/shrink
+     and the actions/header remain visible on all devices. */
   dialog > * {
-    max-height: calc(100vh - 4rem);
-    overflow: auto;
+    max-height: 80dvh;
+    overflow: visible;
   }
 
   /* Keep grid color; do not override --grid-color here. */
@@ -410,8 +412,10 @@ body {
 
 /* Ticket form styles */
 .ticket-form {
-  width: 100%;
+  /* responsive width: cap at 720px but use viewport space otherwise */
+  width: min(720px, 88vw);
   max-width: 720px;
+  margin: 0 auto;
   padding: 1.25rem;
   box-sizing: border-box;
   color: var(--text-primary);
@@ -455,21 +459,39 @@ body {
     background-color: var(--grid-color);
   }
 }
+.ticket-form textarea {
+  max-height: 320px;
+  min-height: 100px;
+}
 .ticket-form input[type='file'] {
   display: none;
 }
 .field-message .message-wrapper {
   position: relative;
 }
+.field-message .message-wrapper {
+  /* ensure wrapper allows the textarea to grow and the attach button to overlay */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.field-message textarea,
+.ticket-form textarea {
+  /* reserve space on the right so text doesn't flow under the attach button */
+  padding-right: calc(1rem + var(--attach-size, 40px));
+  box-sizing: border-box;
+}
 .attach-btn {
+  /* size exposed as a variable so padding on the textarea can match */
+  --attach-size: 40px;
   position: absolute;
-  right: 0.45rem;
-  bottom: 0.45rem;
+  left: 0;
+  top: 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: var(--attach-size);
+  height: var(--attach-size);
   background: var(--button-secondary);
   color: var(--accent-color);
   border-radius: 9999px;
@@ -480,25 +502,21 @@ body {
 .attach-btn:hover {
   transform: scale(1.04);
 }
-.hint {
-  margin-top: 0.35rem;
-  color: var(--text-accent);
-  font-size: 0.85rem;
-}
 .form-actions {
   display: flex;
   gap: 0.6rem;
   justify-content: flex-end;
   margin-top: 0.75rem;
-}
-.btn-primary {
-  background: var(--button-secondary);
-  color: var(--accent-color);
-}
-.btn-secondary {
-  background: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--grid-color);
+
+  & .btn[type='button'] {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: 1px solid var(--grid-color);
+
+    &:hover {
+      background: var(--grid-color);
+    }
+  }
 }
 
 /* invalid state */
@@ -512,11 +530,134 @@ body {
     padding: 1rem;
   }
   .attach-btn {
+    --attach-size: 36px;
     right: 0.35rem;
     bottom: 0.35rem;
-    width: 36px;
-    height: 36px;
   }
+}
+
+/* Desktop tweaks: slightly narrower proportion and larger textarea cap */
+@media (min-width: 1025px) {
+  .ticket-form {
+    width: min(720px, 60vw);
+  }
+}
+
+/* Mobile small screens: stack action buttons full width for easy tap */
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+  .form-actions .btn {
+    width: 100%;
+  }
+  .ticket-form {
+    width: calc(100vw - 2rem);
+    padding: 0.9rem;
+  }
+
+  /* center the text/icons in buttons on small screens for better tap targets */
+  .form-actions .btn,
+  .ticket-form .btn,
+  .btn-ticket {
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* make sure the attach button remains visually centered and not overlapping text */
+  .attach-btn {
+    --attach-size: 40px;
+    right: 0.6rem;
+    bottom: 0.6rem;
+  }
+}
+
+/* Tablet layout: make the form fill available height and let the textarea expand */
+@media (min-width: 600px) and (max-width: 1024px) {
+  .ticket-form {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 4rem);
+    padding: 1rem;
+  }
+  .ticket-form .field {
+    flex: 0 0 auto;
+  }
+  .field-message {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .field-message .message-wrapper {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .field-message textarea {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: calc(100vh / 6);
+    max-height: none;
+  }
+  .form-actions {
+    margin-top: 0.75rem;
+  }
+}
+
+/* Ensure full-screen dialogs (tablet breakpoint) let the form fill the dialog
+   and the textarea flexes to occupy remaining vertical space. This targets the
+   case where dialog itself becomes full-screen via the earlier mobile rules. */
+@media (max-width: 1024px) {
+  dialog .ticket-form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  dialog .field-message {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  dialog .field-message textarea {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    max-height: none;
+  }
+}
+
+/* Ensure dialog .ticket-form is flexible on all viewports so textarea can grow */
+dialog .ticket-form {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Make textarea flexible in general so it expands to available space */
+.field-message textarea {
+  display: block;
+  width: 100%;
+  min-height: 120px;
+  max-height: 100%;
+  height: auto;
+  flex: 1 1 auto;
+}
+
+/* reserve additional bottom space so lines of text don't flow under the attach button */
+.field-message textarea,
+.ticket-form textarea {
+  padding-bottom: calc(0.6rem + var(--attach-size, 40px));
+}
+
+/* pull actions a bit closer to the textarea so buttons aren't too far down */
+.form-actions {
+  margin-top: 0.5rem;
 }
 
 .img-preview {
