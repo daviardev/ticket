@@ -368,7 +368,7 @@ body {
     gap: 0.5rem;
     padding: 0.4rem 0.6rem;
     border-radius: 9999px;
-    background-color: rgba(0, 0, 0, 0.12);
+    background-color: var(--bg-tertiary);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
     opacity: 0;
     visibility: hidden;
@@ -653,22 +653,6 @@ dialog .ticket-form {
 /* pull actions a bit closer to the textarea so buttons aren't too far down */
 .form-actions {
   margin-top: 0.5rem;
-}
-
-.img-preview {
-  display: inline-block;
-  vertical-align: middle;
-  border: 1px solid var(--grid-color);
-  background: var(--bg-tertiary);
-}
-.form-feedback {
-  margin-top: 0.6rem;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  min-height: 1.2rem;
-}
-.form-feedback.success {
-  color: var(--button-secondary);
 }
 
 .theme-option {
