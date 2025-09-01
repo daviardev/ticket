@@ -519,11 +519,6 @@ body {
   }
 }
 
-/* invalid state */
-.invalid {
-  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.03) inset;
-}
-
 /* Responsive tweaks */
 @media (max-width: 720px) {
   .ticket-form {
