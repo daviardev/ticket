@@ -510,7 +510,7 @@ body {
 
   & .btn[type='button'] {
     background: var(--bg-tertiary);
-    color: var(--text-secondary);
+    color: var(--text-primary);
     border: 1px solid var(--grid-color);
 
     &:hover {
