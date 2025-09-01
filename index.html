@@ -21,6 +21,29 @@
           <h1>Bienvenido(a)</h1>
         </span>
 
+        <dialog id="glpi-window">
+          <div class="dialog-header">
+            <button
+              class="dialog-close"
+              aria-label="Cerrar"
+              onclick="toggleDialog()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  stroke="none"
+                  d="m289.94 256 95-95A24 24 0 0 0 351 127l-95 95-95-95a24 24 0 0 0-34 34l95 95-95 95a24 24 0 1 0 34 34l95-95 95 95a24 24 0 0 0 34-34z"
+                />
+              </svg>
+            </button>
+          </div>
+        </dialog>
+
         <dialog id="send-ticket-modal">
           <div class="dialog-header">
             <button
@@ -121,7 +144,11 @@
         </span>
       </header>
       <div class="app">
-        <button class="ticket-app" title="GLPI">
+        <button
+          class="ticket-app"
+          title="GLPI"
+          onclick="toggleDialog('glpi-window')"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -167,7 +194,11 @@
     </div>
     <!-- Bottom nav for tablet & mobile (visible via CSS media queries) -->
     <div class="bottom-nav" role="navigation" aria-label="Acciones">
-      <button class="ticket-app">
+      <button
+        class="ticket-app"
+        onclick="toggleDialog('glpi-window')"
+        title="GLPI"
+      >
         <!-- reuse svg from ticket button -->
         <svg
           xmlns="http://www.w3.org/2000/svg"

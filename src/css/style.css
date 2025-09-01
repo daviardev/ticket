@@ -7,6 +7,8 @@
 @import './animation.css';
 @import './view-transition.css';
 
+@import './glpi-window.css';
+
 @import '../custom.css';
 
 * {
