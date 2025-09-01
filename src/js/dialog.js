@@ -60,7 +60,7 @@ export async function toggleDialog(id) {
     }
     openDialogs.addEventListener('animationend', onEnd, { once: true })
     // Timeout fallback in case animationend is not fired
-    // keep a small buffer above the CSS animation (200ms) so it feels snappy
+    // small buffer above the CSS animation (160ms) so it feels snappy
     setTimeout(() => {
       if (closed) return
       try {
@@ -69,7 +69,7 @@ export async function toggleDialog(id) {
         openDialogs.removeAttribute('open')
       }
       openDialogs.classList.remove('vt-fallback-out')
-    }, 240)
+    }, 180)
 
     return
   }
@@ -122,8 +122,7 @@ export async function toggleDialog(id) {
     dialog.style.viewTransitionClass = ''
     dialog.style.viewTransitionName = ''
   } else {
-    // Fallback: use CSS animations for open. Ensure dialog is visible and animate.
-    dialog.classList.add('vt-fallback-in')
+    // Fallback: ensure dialog is visible before adding animation class to avoid layout jump
     try {
       if (typeof dialog.showModal === 'function') dialog.showModal()
       else dialog.setAttribute('open', '')
@@ -131,6 +130,14 @@ export async function toggleDialog(id) {
       // If showModal throws, fallback to open attribute
       dialog.setAttribute('open', '')
     }
+
+    // Force reflow so the browser registers the dialog's centered layout before animating
+    // (prevents "jump" from corner -> center)
+    void dialog.offsetHeight
+
+    // Now add the animation class
+    dialog.classList.add('vt-fallback-in')
+
     // remove class after animation completes
     let opened = false
     const onEndOpen = () => {
@@ -141,7 +148,7 @@ export async function toggleDialog(id) {
     dialog.addEventListener('animationend', onEndOpen, { once: true })
     setTimeout(() => {
       if (!opened) dialog.classList.remove('vt-fallback-in')
-    }, 320)
+    }, 300)
   }
 }
 

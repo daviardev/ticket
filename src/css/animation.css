@@ -89,7 +89,8 @@
   animation: vt-dialog-in 260ms cubic-bezier(0.38, 0.49, 0, 1) both;
 }
 .vt-fallback-out {
-  animation: vt-dialog-out 200ms cubic-bezier(0.75, 0, 0.41, -0.06) both;
+  /* shorten closing so dialog feels snappier */
+  animation: vt-dialog-out 160ms cubic-bezier(0.75, 0, 0.41, -0.06) both;
 }
 
 /* Mobile-specific animations: dialog is full-screen on small viewports and
@@ -121,7 +122,8 @@
     animation: vt-dialog-in-mobile 260ms cubic-bezier(0.38, 0.49, 0, 1) both;
   }
   .vt-fallback-out {
-    animation: vt-dialog-out-mobile 200ms cubic-bezier(0.75, 0, 0.41, -0.06)
+    /* mobile closing: match desktop snappier timing */
+    animation: vt-dialog-out-mobile 160ms cubic-bezier(0.75, 0, 0.41, -0.06)
       both;
   }
 }
