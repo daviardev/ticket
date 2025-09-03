@@ -1,19 +1,33 @@
 import 'dotenv/config'
 
-import ai from 'openai'
+import openAi from 'openai'
 
-// import e from 'express'
+import cors from 'cors'
+import e from 'express'
+import bp from 'body-parser'
 
-const openAI = new ai.OpenAI({
+const ai = new openAi.OpenAI({
   // eslint-disable-next-line
   apiKey: process.env.OPENAI_API_KEY,
   // eslint-disable-next-line
   baseURL: process.env.URL_OPEN_ROUTER,
 })
 
-const app = async (message) => {
+const app = e()
+// eslint-disable-next-line
+const PORT = process.env.PORT || 3000
+
+app.use(bp.json())
+
+app.use(cors())
+
+app.post('/post', async (req, res) => {
+  const { message } = req.body
+
+  if (!message) return res.status(400).json({ error: 'Message is required' })
+
   try {
-    const res = await openAI.chat.completions.create({
+    const response = await ai.chat.completions.create({
       model: 'deepseek/deepseek-r1-0528:free',
       messages: [
         {
@@ -90,12 +104,15 @@ const app = async (message) => {
       temperature: 0.3,
     })
 
-    const chat = res.choices[0].message.content
-
-    return chat
+    res.json({
+      response: response.choices[0].message.content,
+    })
   } catch (err) {
     console.error(err)
+    res.status(500).json({ error: 'Error processing the request' })
   }
-}
+})
 
-app()
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
