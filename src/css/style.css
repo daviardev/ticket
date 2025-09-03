@@ -717,3 +717,50 @@ dialog .ticket-form {
     }
   }
 }
+
+.btn[aria-busy='true'] {
+  cursor: progress;
+  pointer-events: none;
+}
+
+/* User-provided loader animation */
+.loader {
+  --duration: 3s;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  display: inline-block;
+  margin: 0 16px;
+}
+
+.loader svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.loader svg circle {
+  fill: none;
+  stroke: var(--button-secondary);
+  stroke-width: 10px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 150 50 150 50;
+  stroke-dashoffset: 75;
+  animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
+}
+
+#btn-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px; /* avoid layout shift when swapping content */
+}
+
+.btn-loader {
+  width: 1em;
+  height: 1em;
+  color: inherit;
+  animation: btn-rotate 1s linear infinite;
+}
