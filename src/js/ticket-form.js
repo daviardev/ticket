@@ -1,39 +1,60 @@
-import { client } from './openai'
-
 const form = document.getElementById('ticket-form')
 
-const subjectInput = document.getElementById('subject')
 const messageInput = document.getElementById('message')
+const submitButton = document.getElementById('btn-send')
 
-const AnalyzeEmail = async (message) => {
-  try {
-    const res = await client.chat.completions.create({
-      model: 'gpt-5-mini',
-      messages: [
-        {
-          role: 'system',
-          content: `
-            Eres un clasificador de correos de soporte.
-            responde SIEMPRE en JSON válido con el formato exacto
-            {"clasificacion":"","resumen":"","agente":"","departamento":""}.
-          `,
-        },
-        {
-          role: 'user',
-          content: message,
-        },
-      ],
-      temperature: 0.3,
-    })
+// create loader element once and reuse (uses user's animation SVG)
+const loaderEl = document.createElement('div')
+loaderEl.className = 'loader'
+loaderEl.innerHTML = `
+  <svg viewBox="0 0 80 80">
+    <circle r="32" cy="40" cx="40" id="test"></circle>
+  </svg>
+`
 
-    const text = res.choices[0].message.content
+function showLoader() {
+  if (!submitButton) return
+  submitButton.setAttribute('aria-busy', 'true')
+  submitButton.disabled = true
+  // hide original text but keep for accessibility
+  submitButton.dataset.origText = submitButton.innerHTML
+  submitButton.innerHTML = ''
+  // append a clone so the original element can be reused later
+  submitButton.appendChild(loaderEl.cloneNode(true))
+}
 
-    return JSON.parse(text)
-  } catch (err) {
-    console.error('Error al analizar el correo:', err)
+function hideLoader() {
+  if (!submitButton) return
+  submitButton.removeAttribute('aria-busy')
+  submitButton.disabled = false
+  // restore original content
+  if (submitButton.dataset.origText) {
+    submitButton.innerHTML = submitButton.dataset.origText
+    delete submitButton.dataset.origText
   }
 }
 
-form.addEventListener('submit', async (event) => {
-  event.preventDefault()
+form.addEventListener('submit', async (e) => {
+  e.preventDefault()
+
+  const message = messageInput.value
+
+  showLoader()
+
+  try {
+    const res = await fetch('http://localhost:3000/post', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message }),
+    })
+
+    const data = await res.json()
+
+    // also log the result in console as the user requested
+    console.log('Send result:', data)
+  } catch (err) {
+    console.error('Send error:', err)
+  } finally {
+    hideLoader()
+  }
 })
