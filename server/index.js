@@ -35,6 +35,10 @@ app.post('/post', async (req, res) => {
           content: `
             Eres un asistente de soporte técnico para SuppTick.
             Analizas correos electrónicos entrantes y extraes información clave para crear tickets de soporte.
+
+            No debes inventar información que no esté en el correo.
+            Tampoco indicar una explicación larga, solo responde en el formato JSON solicitado.
+            Si el correo no tiene relación con soporte, clasifícalo como "Spam" u "Otros" dependiendo del contexto y no asignes agente ni departamento.
                 
             Detecta si se menciona algún agente o departamento específico, ya sea si se usa el símbolo # o @ o se menciona directamente al agente o departamento.
                 
