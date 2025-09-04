@@ -44,7 +44,7 @@
           </div>
           <div class="dashboard">
             <header class="dashboard-header">
-              <div class="dashboard-header-logo">
+              <div>
                 <div class="dashboard-logo">
                   <span class="dashboard-logo-icon">
                     <img src="" alt="" />
@@ -55,13 +55,134 @@
                   </h2>
                 </div>
               </div>
-              <div class="dashboard-header-navigation">
-                <div class="dashboard-header-tabs">
-                  <a href="#">Inicio</a>
-                  <a href="#"></a>
-                </div>
+
+              <div class="dashboard-header-actions">
+                <button class="dashboard-header-logout">
+                  Cerrar sesión
+                </button>
+              </div>
+
+              <div class="dashboard-header-mobile">
+                <button>Menu</button>
+                <button>Cerrar sesión</button>
               </div>
             </header>
+            <div class="dashboard-aside-navigation">
+              <aside>
+                <nav>
+                  <ul>
+                    <li><a href="#">Dashboard</a><a href="#">Casos</a><a href="#">Categorías</a><a href="#">Agentes</a><a href="#">Departamentos</a></li>
+                  </ul>
+                </nav>
+              </aside>
+            </div>
+            <div class="dashboard-body">
+              <div class="dashboard-body-main-content">
+                <section class="dashboard-section-cards">
+                  <h3>Resumen</h3>
+
+                  <div class="dashboard-body-tiles">
+                    <article class="dashboard-body-tile">
+                      <span class="dashboard-body-tile-header">
+                        <h3>
+                          Casos abiertos
+                        </h3>
+                      </span>
+                      <span class="dashboard-body-tile-body">
+                        <h2>24</h2>
+                        <p>Casos abiertos en los últimos 30 días</p>
+                      </span>
+                    </article>
+                    <article class="dashboard-body-tile">
+                      <span class="dashboard-body-tile-header">
+                        <h3>
+                          Casos cerrados
+                        </h3>
+                      </span>
+                      <span class="dashboard-body-tile-body">
+                        <h2>18</h2>
+                        <p>Casos cerrados en los últimos 30 días</p>
+                      </span>
+                    </article>
+                    <article class="dashboard-body-tile">
+                      <span class="dashboard-body-tile-header">
+                        <h3>
+                          Casos resueltos
+                        </h3>
+                      </span>
+                      <span class="dashboard-body-tile-body">
+                        <h2>2</h2>
+                        <p>Casos resueltos en los últimos 30 días</p>
+                      </span>
+                    </article>
+                  </div>
+                  <span class="dashboard-body-footer">
+                    Son estadísticas generales de los últimos 30 días.
+                  </span>
+                </section>
+
+                <section class="dashboard-section-tickets">
+                  <div class="dashboard-section-header">
+                    <h2>Casos recientes</h2>
+                    <span class="dashboard-section-filter">
+                      <p>Casos filtrados: </p>
+                      <button>Atras</button>
+                      <button>Siguiente</button>
+                    </span>
+                  </div>
+                  <div class="dashboard-section-tickets">
+                    <table class="tickets-table">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Asunto</th>
+                          <th>Estado</th>
+                          <th>Prioridad</th>
+                          <th>Fecha de creación</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>#1234</td>
+                          <td>Problema con el inicio de sesión</td>
+                          <td><span class="status-open">Abierto</span></td>
+                          <td><span class="priority-high">Alta</span></td>
+                          <td>2024-06-01</td>
+                        </tr>
+                        <tr>
+                          <td>#1235</td>
+                          <td>Error al cargar la página principal</td>
+                          <td><span class="status-in-progress">En progreso</span></td>
+                          <td><span class="priority-medium">Media</span></td>
+                          <td>2024-06-02</td>
+                        </tr>
+                        <tr>
+                          <td>#1236</td>
+                          <td>Solicitud de nueva funcionalidad</td>
+                          <td><span class="status-closed">Cerrado</span></td>
+                          <td><span class="priority-low">Baja</span></td>
+                          <td>2024-06-03</td>
+                        </tr>
+                        <tr>
+                          <td>#1237</td>
+                          <td>No puedo restablecer mi contraseña</td>
+                          <td><span class="status-open">Abierto</span></td>
+                          <td><span class="priority-high">Alta</span></td>
+                          <td>2024-06-04</td>
+                        </tr>
+                        <tr>
+                          <td>#1238</td>
+                          <td>Problema con las notificaciones por correo electrónico</td>
+                          <td><span class="status-in-progress">En progreso</span></td>
+                          <td><span class="priority-medium">Media</span></td>
+                          <td>2024-06-05</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              </div>
+            </div>
           </div>
         </dialog>
 

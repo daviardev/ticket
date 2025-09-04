@@ -764,3 +764,22 @@ dialog .ticket-form {
   color: inherit;
   animation: btn-rotate 1s linear infinite;
 }
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+
+  .dashboard-header {
+    display: grid;
+    grid-template-columns: minmax(min-content, 175px) minmax(max-content, 1fr) minmax(
+			max-content,
+			400px
+		);
+    column-gap: 4rem;
+    align-items: self-end;
+
+    .dashboard-logo {
+
+    }
+  }
+}
