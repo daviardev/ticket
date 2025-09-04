@@ -22,32 +22,15 @@
         </span>
 
         <dialog id="glpi-window">
-          <div class="dialog-header">
-            <button
-              class="dialog-close"
-              aria-label="Cerrar"
-              onclick="toggleDialog()"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  stroke="none"
-                  d="m289.94 256 95-95A24 24 0 0 0 351 127l-95 95-95-95a24 24 0 0 0-34 34l95 95-95 95a24 24 0 1 0 34 34l95-95 95 95a24 24 0 0 0 34-34z"
-                />
-              </svg>
-            </button>
-          </div>
           <div class="dashboard">
             <header class="dashboard-header">
               <div>
                 <div class="dashboard-logo">
                   <span class="dashboard-logo-icon">
-                    <img src="" alt="" />
+                    <img
+                      src="https://assets.codepen.io/285131/almeria-logo.svg"
+                      alt=""
+                    />
                   </span>
                   <h2 class="dashboard-logo-title">
                     <span>SuppTick</span>
@@ -56,37 +39,48 @@
                 </div>
               </div>
 
-              <div class="dashboard-header-actions">
-                <button class="dashboard-header-logout">
-                  Cerrar sesión
-                </button>
-              </div>
+              <div class="dashboard-header-actions"></div>
 
               <div class="dashboard-header-mobile">
-                <button>Menu</button>
+                <button>menu</button>
                 <button>Cerrar sesión</button>
               </div>
             </header>
-            <div class="dashboard-aside-navigation">
-              <aside>
+
+            <div class="dashboard-body">
+              <aside class="dashboard-aside-navigation">
                 <nav>
                   <ul>
-                    <li><a href="#">Dashboard</a><a href="#">Casos</a><a href="#">Categorías</a><a href="#">Agentes</a><a href="#">Departamentos</a></li>
+                    <li>
+                      <a href="#">Dashboard</a>
+                      <a href="#">Casos</a>
+                      <a href="#">Categorías</a>
+                      <a href="#">Agentes</a>
+                      <a href="#">Departamentos</a>
+                    </li>
                   </ul>
                 </nav>
+                <footer>
+                  <h2>
+                    SuppTick
+                    <small>©</small>
+                  </h2>
+
+                  <span>
+                    supptick ©
+                    <br />
+                    Todos los derechos reservados 2025
+                  </span>
+                </footer>
               </aside>
-            </div>
-            <div class="dashboard-body">
               <div class="dashboard-body-main-content">
                 <section class="dashboard-section-cards">
-                  <h3>Resumen</h3>
+                  <h3 class="title-section-card">Resumen</h3>
 
                   <div class="dashboard-body-tiles">
                     <article class="dashboard-body-tile">
                       <span class="dashboard-body-tile-header">
-                        <h3>
-                          Casos abiertos
-                        </h3>
+                        <h3>Casos abiertos</h3>
                       </span>
                       <span class="dashboard-body-tile-body">
                         <h2>24</h2>
@@ -95,9 +89,7 @@
                     </article>
                     <article class="dashboard-body-tile">
                       <span class="dashboard-body-tile-header">
-                        <h3>
-                          Casos cerrados
-                        </h3>
+                        <h3>Casos cerrados</h3>
                       </span>
                       <span class="dashboard-body-tile-body">
                         <h2>18</h2>
@@ -106,9 +98,7 @@
                     </article>
                     <article class="dashboard-body-tile">
                       <span class="dashboard-body-tile-header">
-                        <h3>
-                          Casos resueltos
-                        </h3>
+                        <h3>Casos resueltos</h3>
                       </span>
                       <span class="dashboard-body-tile-body">
                         <h2>2</h2>
@@ -125,7 +115,7 @@
                   <div class="dashboard-section-header">
                     <h2>Casos recientes</h2>
                     <span class="dashboard-section-filter">
-                      <p>Casos filtrados: </p>
+                      <p>Casos filtrados:</p>
                       <button>Atras</button>
                       <button>Siguiente</button>
                     </span>
@@ -152,7 +142,9 @@
                         <tr>
                           <td>#1235</td>
                           <td>Error al cargar la página principal</td>
-                          <td><span class="status-in-progress">En progreso</span></td>
+                          <td>
+                            <span class="status-in-progress">En progreso</span>
+                          </td>
                           <td><span class="priority-medium">Media</span></td>
                           <td>2024-06-02</td>
                         </tr>
@@ -172,8 +164,13 @@
                         </tr>
                         <tr>
                           <td>#1238</td>
-                          <td>Problema con las notificaciones por correo electrónico</td>
-                          <td><span class="status-in-progress">En progreso</span></td>
+                          <td>
+                            Problema con las notificaciones por correo
+                            electrónico
+                          </td>
+                          <td>
+                            <span class="status-in-progress">En progreso</span>
+                          </td>
                           <td><span class="priority-medium">Media</span></td>
                           <td>2024-06-05</td>
                         </tr>
