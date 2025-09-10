@@ -2,9 +2,9 @@ import 'dotenv/config'
 
 import openAi from 'openai'
 
+import bp from 'body-parser'
 import cors from 'cors'
 import e from 'express'
-import bp from 'body-parser'
 
 const ai = new openAi.OpenAI({
   // eslint-disable-next-line
@@ -17,6 +17,10 @@ const dataset = `
 
             Eres un asistente de soporte técnico para SuppTick.
             Analizas correos electrónicos entrantes y extraes información clave para crear tickets de soporte.
+
+            Solo límitate a responder en el formato JSON solicitado, no des explicaciones adicionales.
+
+            No respondas más cosas de la cuenta, solo analiza el correo y responde en el formato JSON solicitado.
 
             No debes inventar información que no esté en el correo.
             Tampoco indicar una explicación larga, solo responde en el formato JSON solicitado.

@@ -55,9 +55,11 @@ dialog.vt-closing {
   ::view-transition {
     display: none;
   }
+
   ::view-transition-group {
     display: none;
   }
+
   /* Ensure dialogs use the fallback animations */
   dialog[v-open],
   dialog[open] {
@@ -81,7 +83,7 @@ body {
     color: var(--text-primary);
   }
 
-  & > .hero-logo {
+  &>.hero-logo {
     width: 220px;
     height: auto;
     position: relative;
@@ -283,6 +285,7 @@ body {
 
 /* Responsive: mobile & tablet specific adjustments */
 @media (max-width: 1024px) {
+
   /* Make dialogs full-screen on tablets and phones */
   dialog {
     position: fixed;
@@ -300,7 +303,8 @@ body {
 
   dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.45);
-    backdrop-filter: none; /* avoid heavy blur on mobile */
+    backdrop-filter: none;
+    /* avoid heavy blur on mobile */
   }
 
   /* Reduce/disable heavy decorations that can cause lag on mobile */
@@ -329,7 +333,8 @@ body {
   /* Buttons transform into a floating bottom nav */
   .app,
   .theme-selector {
-    display: none; /* hide original positioned buttons */
+    display: none;
+    /* hide original positioned buttons */
   }
 
   /* Bottom nav that contains the two buttons (ticket + theme) */
@@ -393,7 +398,7 @@ body {
   /* Make dialog content fit the viewport and avoid internal scrolls.
      The form uses a column flex layout so the textarea can expand/shrink
      and the actions/header remain visible on all devices. */
-  dialog > * {
+  dialog>* {
     max-height: 80dvh;
     overflow: visible;
   }
@@ -422,18 +427,22 @@ body {
   box-sizing: border-box;
   color: var(--text-primary);
 }
+
 .ticket-form-header h2 {
   font-size: 1.6rem;
   margin-bottom: 0.25rem;
 }
+
 .ticket-form-header p {
   color: var(--text-accent);
   font-weight: lighter;
   margin-bottom: 1rem;
 }
+
 .ticket-form .field {
   margin-bottom: 0.75rem;
 }
+
 .ticket-form label {
   display: flex;
   position: relative;
@@ -441,6 +450,7 @@ body {
   font-size: 0.9rem;
   color: var(--text-accent);
 }
+
 .ticket-form input[type='text'],
 .ticket-form textarea {
   width: 100%;
@@ -461,28 +471,34 @@ body {
     background-color: var(--grid-color);
   }
 }
+
 .ticket-form textarea {
   max-height: 320px;
   min-height: 100px;
 }
+
 .ticket-form input[type='file'] {
   display: none;
 }
+
 .field-message .message-wrapper {
   position: relative;
 }
+
 .field-message .message-wrapper {
   /* ensure wrapper allows the textarea to grow and the attach button to overlay */
   display: flex;
   flex-direction: column;
   min-height: 0;
 }
+
 .field-message textarea,
 .ticket-form textarea {
   /* reserve space on the right so text doesn't flow under the attach button */
   padding-right: calc(1rem + var(--attach-size, 40px));
   box-sizing: border-box;
 }
+
 .attach-btn {
   /* size exposed as a variable so padding on the textarea can match */
   --attach-size: 40px;
@@ -501,9 +517,11 @@ body {
   cursor: pointer;
   transition: transform 0.15s ease;
 }
+
 .attach-btn:hover {
   transform: scale(1.04);
 }
+
 .form-actions {
   display: flex;
   gap: 0.6rem;
@@ -526,6 +544,7 @@ body {
   .ticket-form {
     padding: 1rem;
   }
+
   .attach-btn {
     --attach-size: 36px;
     right: 0.35rem;
@@ -546,9 +565,11 @@ body {
     flex-direction: column-reverse;
     gap: 0.5rem;
   }
+
   .form-actions .btn {
     width: 100%;
   }
+
   .ticket-form {
     width: calc(100vw - 2rem);
     padding: 0.9rem;
@@ -578,26 +599,31 @@ body {
     height: calc(100vh - 4rem);
     padding: 1rem;
   }
+
   .ticket-form .field {
     flex: 0 0 auto;
   }
+
   .field-message {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     min-height: 0;
   }
+
   .field-message .message-wrapper {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
   }
+
   .field-message textarea {
     flex: 1 1 auto;
     height: auto;
     min-height: calc(100vh / 6);
     max-height: none;
   }
+
   .form-actions {
     margin-top: 0.75rem;
   }
@@ -615,12 +641,14 @@ body {
     box-sizing: border-box;
     width: 100%;
   }
+
   dialog .field-message {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     min-height: 0;
   }
+
   dialog .field-message textarea {
     flex: 1 1 auto;
     min-height: 0;
@@ -675,18 +703,22 @@ dialog .ticket-form {
     background-color: #002b75;
     border: 1px solid #001f5a;
   }
+
   &[data-theme='purple'] {
     background-color: #69008e;
     border: 1px solid #4b0066;
   }
+
   &[data-theme='green'] {
     background-color: #08421f;
     border: 1px solid #062d15;
   }
+
   &[data-theme='red'] {
     background-color: #7a1c1a;
     border: 1px solid #5c1311;
   }
+
   &[data-theme='orange'] {
     background-color: #6a3c16;
     border: 1px solid #4b290e;
@@ -747,15 +779,15 @@ dialog .ticket-form {
   stroke-linecap: round;
   stroke-dasharray: 150 50 150 50;
   stroke-dashoffset: 75;
-  animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
-    infinite;
+  animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
 }
 
 #btn-send {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 80px; /* avoid layout shift when swapping content */
+  min-width: 80px;
+  /* avoid layout shift when swapping content */
 }
 
 .btn-loader {
@@ -765,206 +797,67 @@ dialog .ticket-form {
   animation: btn-rotate 1s linear infinite;
 }
 
-.dashboard {
+#glpi-window aside {
+  width: 48px;
+  height: 100%;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--grid-color);
   display: flex;
-  padding: 1.3rem;
   flex-direction: column;
+  align-items: center;
+  padding: 8px 0;
+  position: relative;
 
-  .dashboard-header {
-    display: grid;
-    grid-template-columns:
-      minmax(min-content, 175px) minmax(max-content, 1fr)
-      minmax(max-content, 400px);
-    column-gap: 4rem;
-    align-items: self-end;
+  button {
+    width: 32px;
+    height: 32px;
+    background-color: var(--bg-tertiary);
+    border: 2px solid var(--grid-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all .2s steps(6);
+    font-weight: bold;
+    font-size: 12px;
+    color: var(--text-accent);
 
-    .dashboard-logo {
-      display: flex;
-      align-items: center;
-
-      .dashboard-logo-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 32px;
-        width: 32px;
-      }
-
-      .dashboard-logo-title {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.25;
-        margin-left: 0.75rem;
-
-        & span:first-child {
-          color: var(--text-primary);
-          font-weight: bold;
-          font-size: 1.25rem;
-        }
-
-        & span:last-child {
-          color: var(--text-accent);
-          font-size: 1rem;
-          font-weight: 500;
-          text-align: left;
-        }
-      }
+    svg {
+      fill: currentColor;
     }
 
-    .dashboard-header-actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .active {
+      background-color: var(--accent-color);
+      color: var(--bg-primary);
+      border-color: var(--button-secondary);
     }
 
-    .dashboard-header-mobile {
-      display: none;
-      justify-content: flex-end;
-      align-items: center;
-
-      @media (max-width: 768px) {
-        display: flex;
-        grid-column: 1 / -1;
-        margin-top: 0.5rem;
-      }
+    &:hover {
+      background-color: var(--accent-color);
+      color: var(--button-color);
+      border-color: var(--accent-color);
+      transform: scale(1.1);
     }
   }
+}
 
-  .dashboard-body {
+article {
+  flex: 1;
+  background: var(--bg-primary);
+  position: relative;
+
+  section {
+    display: none;
+    width: 100%;
     height: 100%;
-    display: grid;
-    grid-template-columns:
-      minmax(min-content, 175px) minmax(max-content, 1fr)
-      minmax(min-content, 400px);
-    column-gap: 4rem;
-    padding-top: 2.5rem;
 
-    .dashboard-aside-navigation {
+    .active {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 70vh;
-
-      nav {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        color: var(--text-secondary);
-        height: 100%;
-        border-right: 1px solid var(--grid-color);
-
-        a {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          text-decoration: none;
-          padding: 0.9rem 1rem;
-          border-radius: 0.75rem;
-          width: 100%;
-          color: var(--text-secondary);
-          font-weight: 400;
-          transition:
-            background-color 0.2s ease-in,
-            color 0.2s ease-in,
-            font-weight 0.2s ease-in;
-
-          &:hover {
-            background-color: var(--grid-color);
-            color: var(--text-primary);
-            font-weight: bolder;
-          }
-
-          &.active {
-            background-color: var(--accent-color);
-            color: var(--bg-primary);
-            font-weight: bolder;
-          }
-
-          svg {
-            width: 1.25rem;
-            height: 1.25rem;
-            flex-shrink: 0;
-            stroke-width: 1.5px;
-          }
-        }
-      }
-      footer {
-        margin-top: auto;
-        padding-top: 1rem;
-        font-size: 0.85rem;
-        color: var(--text-accent);
-        text-align: center;
-
-        h2 {
-          font-size: 1.5rem;
-          line-height: 1.125;
-          font-weight: bolder;
-          display: flex;
-          align-items: flex-start;
-        }
-
-        small {
-          font-size: 1em;
-          margin-left: 0.25em;
-        }
-
-        span {
-          font-size: 0.75rem;
-          text-align: left;
-          align-items: center;
-          display: flex;
-          color: var(--text-secondary);
-        }
-      }
     }
 
-    .dashboard-section-cards {
-      .title-section-card {
-        font-weight: bold;
-        text-align: start;
-        color: var(--text-primary);
-        font-size: 1.5rem;
-        margin-bottom: 1.25rem;
-      }
-
-      .dashboard-body-tiles {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        column-gap: 1rem;
-        row-gap: 1rem;
-        margin-top: 1.25rem;
-
-        .dashboard-body-tile {
-          padding: 1rem;
-          border-radius: 1rem;
-          background-color: var(--bg-tertiary);
-          color: var(--text-primary);
-          min-height: 200px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          position: relative;
-          transition: 0.25s ease;
-
-          &:hover {
-            transform: translateY(-5px);
-          }
-
-          .dashboard-body-tile-header {
-            display: flex;
-            align-items: center;
-            color: var(--text-accent);
-
-            h3 {
-              display: flex;
-              flex-direction: column;
-              line-height: 1.375;
-              margin-left: 0.5rem;
-              color: var(--text-secondary);
-            }
-          }
-        }
-      }
+    .dashboard {
+      
     }
   }
 }
