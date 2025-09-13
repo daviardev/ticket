@@ -83,16 +83,29 @@ body {
     color: var(--text-primary);
   }
 
-  &>.hero-logo {
+  & > .hero-logo {
     width: 220px;
     height: auto;
     position: relative;
     display: flex;
     border-radius: 9999px;
     margin-bottom: 1rem;
+    align-items: center;
+    gap: 1rem;
     padding: 0.5rem;
     object-fit: contain;
     background-color: var(--bg-tertiary);
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+    }
   }
 }
 
@@ -285,7 +298,6 @@ body {
 
 /* Responsive: mobile & tablet specific adjustments */
 @media (max-width: 1024px) {
-
   /* Make dialogs full-screen on tablets and phones */
   dialog {
     position: fixed;
@@ -398,8 +410,7 @@ body {
   /* Make dialog content fit the viewport and avoid internal scrolls.
      The form uses a column flex layout so the textarea can expand/shrink
      and the actions/header remain visible on all devices. */
-  dialog>* {
-    max-height: 80dvh;
+  dialog > * {
     overflow: visible;
   }
 
@@ -779,7 +790,8 @@ dialog .ticket-form {
   stroke-linecap: round;
   stroke-dasharray: 150 50 150 50;
   stroke-dashoffset: 75;
-  animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+  animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    infinite;
 }
 
 #btn-send {
@@ -797,67 +809,593 @@ dialog .ticket-form {
   animation: btn-rotate 1s linear infinite;
 }
 
-#glpi-window aside {
-  width: 48px;
-  height: 100%;
-  background: var(--bg-secondary);
-  border-right: 1px solid var(--grid-color);
+.container-glpi-window {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 8px 0;
   position: relative;
+  height: 100%;
+  width: 100%;
 
-  button {
-    width: 32px;
-    height: 32px;
-    background-color: var(--bg-tertiary);
-    border: 2px solid var(--grid-color);
+  aside {
+    width: 88px;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-    cursor: pointer;
-    transition: all .2s steps(6);
-    font-weight: bold;
-    font-size: 12px;
-    color: var(--text-accent);
+    padding: 2rem 1rem;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--grid-color);
 
-    svg {
-      fill: currentColor;
+    @media (max-width: 768px) {
+      width: 60px;
+      padding: 1rem 0.5rem;
     }
 
-    .active {
-      background-color: var(--accent-color);
-      color: var(--bg-primary);
-      border-color: var(--button-secondary);
+    button {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--grid-color);
+      display: flex;
+      border-radius: 9999px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: all 0.2s steps(6);
+      font-weight: bold;
+      color: var(--text-accent);
+
+      svg {
+        fill: currentColor;
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+
+      &.active {
+        background-color: var(--button-secondary);
+        color: var(--text-primary);
+        border-color: var(--button-secondary-hover);
+      }
+
+      &:hover {
+        background-color: var(--accent-color);
+        color: var(--button-color);
+        border-color: var(--accent-color);
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  article {
+    flex: 1;
+    background: var(--bg-primary);
+    overflow: auto;
+    padding: 2rem;
+
+    @media (max-width: 768px) {
+      padding: 1rem;
     }
 
-    &:hover {
-      background-color: var(--accent-color);
-      color: var(--button-color);
-      border-color: var(--accent-color);
-      transform: scale(1.1);
+    section {
+      display: none;
+      width: 100%;
+      height: 100%;
+
+      &.active {
+        display: block;
+      }
+
+      .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+        margin-bottom: 2rem;
+
+        span {
+          position: relative;
+          gap: 0.6rem;
+          width: 100%;
+          display: flex;
+        }
+
+        svg {
+          display: flex;
+          position: relative;
+          align-items: center;
+          width: 1.6rem;
+          height: 1.6rem;
+        }
+
+        h3 {
+          font-size: 2rem;
+          font-weight: 700;
+        }
+
+        .logout {
+          display: flex;
+          align-items: center;
+
+          button {
+            padding: 8px;
+            border-radius: 9999px;
+            align-items: center;
+            display: flex;
+            background-color: var(--button-color);
+          }
+        }
+      }
     }
   }
 }
 
-article {
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--button-secondary),
+    var(--accent-color)
+  );
+}
+
+.user-details {
+  padding: 8px;
+  background-color: var(--button-color);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: var(--accent-hover);
+  }
+}
+
+.user-details h3 {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.user-details p {
+  font-size: 0.8rem;
+  color: var(--text-accent);
+}
+
+/* Bento Grid Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(6, 120px);
+  gap: 1.5rem;
+  height: calc(100vh - 160px);
+}
+
+.grid-item {
+  background-color: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid var(--grid-color);
+  transition: all 0.3s ease;
+  position: relative;
+  align-content: center;
+}
+
+.grid-item:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+/* Tickets Overview */
+.tickets-overview {
+  grid-column: span 4;
+  grid-row: span 4;
+  display: flex;
+  flex-direction: column;
+}
+
+.tickets-overview h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.tickets-chart {
   flex: 1;
-  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.donut-chart {
+  width: 200px;
+  height: 200px;
   position: relative;
 
-  section {
-    display: none;
-    width: 100%;
-    height: 100%;
+  svg {
+    width: 200px;
+    height: 200px;
+  }
+}
 
-    .active {
-      display: flex;
-    }
+.chart-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 
-    .dashboard {
-      
-    }
+.chart-center h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.chart-center p {
+  font-size: 0.8rem;
+  color: var(--text-accent);
+}
+
+.chart-legend {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* Performance Card */
+.performance-card {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+
+.performance-card h3 {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+  color: var(--text-primary);
+}
+
+.performance-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.performance-period {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  color: var(--text-primary);
+}
+
+.performance-description {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Value Change */
+.value-change {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+
+.value-change h3 {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  color: var(--text-accent);
+}
+
+.change-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* Progress Card */
+.progress-card {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.progress-card h3 {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  color: var(--text-accent);
+}
+
+.progress-item {
+  margin-bottom: 1rem;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: var(--grid-color);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--button-secondary);
+  transition: width 0.3s ease;
+}
+
+/* Tickets Development */
+.tickets-development {
+  grid-column: span 8;
+  grid-row: span 2;
+}
+
+.development-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.development-header h3 {
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.development-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.chart-container {
+  height: 80px;
+  background: linear-gradient(
+    135deg,
+    rgba(233, 126, 30, 0.1),
+    rgba(233, 132, 43, 0.2)
+  );
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Priority Issues */
+.priority-issues {
+  grid-column: span 4;
+  grid-row: span 2;
+}
+
+.priority-issues h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.priority-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.priority-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.priority-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.critical {
+  background: linear-gradient(135deg, #ff4444, #cc0000);
+}
+.high {
+  background: linear-gradient(135deg, #ff8800, #cc6600);
+}
+.medium {
+  background: linear-gradient(135deg, #ffcc00, #cc9900);
+}
+.low {
+  background: linear-gradient(135deg, #00cc44, #008833);
+}
+
+.priority-details h4 {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.priority-details p {
+  font-size: 0.8rem;
+  color: var(--text-accent);
+}
+
+.priority-count {
+  text-align: right;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Recent Tickets */
+.recent-tickets {
+  grid-column: span 8;
+  grid-row: span 2;
+}
+
+.tickets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.tickets-header h3 {
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.view-all {
+  font-size: 0.8rem;
+  color: var(--text-accent);
+  text-decoration: none;
+}
+
+.ticket-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--grid-color);
+}
+
+.ticket-item:last-child {
+  border-bottom: none;
+}
+
+.ticket-id {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background: linear-gradient(
+    135deg,
+    var(--button-secondary),
+    var(--accent-color)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.ticket-info h4 {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.ticket-info p {
+  font-size: 0.8rem;
+  color: var(--text-accent);
+}
+
+.ticket-status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.status-open {
+  background-color: rgba(255, 136, 0, 0.2);
+  color: #ff8800;
+}
+.status-resolved {
+  background-color: rgba(0, 204, 68, 0.2);
+  color: #00cc44;
+}
+.status-pending {
+  background-color: rgba(255, 204, 0, 0.2);
+  color: #ffcc00;
+}
+.status-closed {
+  background-color: rgba(153, 153, 153, 0.2);
+  color: #999999;
+}
+
+.ticket-priority {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.ticket-date {
+  font-size: 0.8rem;
+  color: var(--text-accent);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  .tickets-overview {
+    grid-column: span 4;
+  }
+
+  .tickets-development {
+    grid-column: span 8;
+  }
+
+  .recent-tickets {
+    grid-column: span 8;
+  }
+}
+
+@media (max-width: 768px) {
+  aside {
+    width: 60px;
+    padding: 1rem 0.5rem;
+  }
+
+  article {
+    padding: 1rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 1rem;
+  }
+
+  .grid-item {
+    grid-column: span 1;
+    grid-row: span 1;
+    height: auto;
   }
 }
