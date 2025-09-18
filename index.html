@@ -901,6 +901,104 @@
           </form>
         </dialog>
 
+        <!-- Fallback Dialog for Manual Ticket Creation -->
+        <dialog id="fallback-ticket-modal">
+          <div class="dialog-header">
+            <button
+              class="dialog-close"
+              aria-label="Cerrar"
+              onclick="toggleDialog()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  stroke="none"
+                  d="m289.94 256 95-95A24 24 0 0 0 351 127l-95 95-95-95a24 24 0 0 0-34 34l95 95-95 95a24 24 0 1 0 34 34l95-95 95 95a24 24 0 0 0 34-34z"
+                />
+              </svg>
+            </button>
+          </div>
+          <form id="fallback-form" class="ticket-form" novalidate>
+            <span class="ticket-form-header">
+              <h2 class="dialog-title">Completar Información del Ticket</h2>
+              <p>
+                La IA no está disponible. Por favor, completa la información
+                adicional para crear tu ticket.
+              </p>
+            </span>
+
+            <div class="field field-subject">
+              <label for="fallback-subject">Asunto del correo *</label>
+              <input
+                id="fallback-subject"
+                name="subject"
+                type="text"
+                placeholder="Asunto del ticket"
+                required
+              />
+            </div>
+
+            <div class="field field-message">
+              <label for="fallback-message">Mensaje *</label>
+              <textarea
+                id="fallback-message"
+                name="message"
+                rows="8"
+                style="resize: none"
+                placeholder="Describe tu problema aquí"
+                required
+                readonly
+              ></textarea>
+            </div>
+
+            <div class="field field-department">
+              <label for="fallback-department">Departamento (opcional)</label>
+              <select id="fallback-department" name="department">
+                <option value="">Seleccionar departamento</option>
+                <option value="soporte-tecnico">Soporte Técnico</option>
+                <option value="ventas">Ventas</option>
+                <option value="facturacion">Facturación</option>
+                <option value="general">General</option>
+              </select>
+            </div>
+
+            <div class="field field-agent">
+              <label for="fallback-agent">Agente (opcional)</label>
+              <select id="fallback-agent" name="agent">
+                <option value="">Asignar automáticamente</option>
+                <option value="juan-perez">Juan Pérez</option>
+                <option value="maria-garcia">María García</option>
+                <option value="carlos-rodriguez">Carlos Rodríguez</option>
+                <option value="ana-martinez">Ana Martínez</option>
+              </select>
+            </div>
+
+            <div class="field field-priority">
+              <label for="fallback-priority">Prioridad *</label>
+              <select id="fallback-priority" name="priority" required>
+                <option value="">Seleccionar prioridad</option>
+                <option value="alta">Alta</option>
+                <option value="media">Media</option>
+                <option value="baja">Baja</option>
+              </select>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn" id="fallback-btn-clear">
+                Limpiar
+              </button>
+              <button type="submit" class="btn" id="fallback-btn-send">
+                Crear Ticket
+              </button>
+            </div>
+          </form>
+        </dialog>
+
         <span>
           <button
             class="btn btn-ticket"

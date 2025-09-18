@@ -463,7 +463,8 @@ body {
 }
 
 .ticket-form input[type='text'],
-.ticket-form textarea {
+.ticket-form textarea,
+.ticket-form select {
   width: 100%;
   padding: 0.9rem 1rem;
   background: var(--bg-tertiary);
@@ -473,6 +474,8 @@ body {
   outline: none;
   resize: vertical;
   transition: all 0.3s ease;
+  font-family: inherit;
+  font-size: inherit;
 
   &:hover {
     background-color: var(--grid-color);
@@ -488,8 +491,42 @@ body {
   min-height: 100px;
 }
 
-.ticket-form input[type='file'] {
-  display: none;
+.ticket-form select {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+  padding-right: 3rem;
+}
+
+.ticket-form select:focus {
+  border-color: var(--button-secondary);
+}
+
+/* Specific styles for fallback form */
+#fallback-form .field-message textarea {
+  background: var(--bg-secondary);
+  border: 2px solid var(--grid-color);
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+#fallback-form .field label {
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+#fallback-form .field label::after {
+  content: ' *';
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+#fallback-form .field-department label::after,
+#fallback-form .field-agent label::after {
+  content: '';
 }
 
 .field-message .message-wrapper {
