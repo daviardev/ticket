@@ -36,7 +36,7 @@
         <dialog id="glpi-window">
           <div class="container-glpi-window">
             <aside>
-              <button class="active" data-section="dashboard">
+              <button data-section="dashboard">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
@@ -50,7 +50,7 @@
                   />
                 </svg>
               </button>
-              <button data-section="tickets">
+              <button class="active" data-section="tickets">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
@@ -96,7 +96,7 @@
             </aside>
 
             <article>
-              <section class="section active" id="dashboard">
+              <section class="section" id="dashboard">
                 <div class="dashboard-header">
                   <span>
                     <svg
@@ -523,6 +523,314 @@
                   </div>
                 </div>
               </section>
+
+              <section class="section active" id="tickets">
+                <div class="main-content">
+                  <div class="left-panel">
+                    <div class="panel-header">
+                      <h2 class="panel-title">Sistema de Tickets</h2>
+                    </div>
+
+                    <span class="filter-tabs">
+                      <button class="filter-tab active">Todos</button>
+                    </span>
+
+                    <div class="ticket-list">
+                      <div class="ticket-section">
+                        <div class="section-header">
+                          <span>Nuevo</span>
+                          <span class="section-count">3</span>
+                        </div>
+
+                        <div class="ticket-item" data-ticket="1">
+                          <div class="ticket-header">
+                            <span class="ticket-id">#TK-001</span>
+                            <div style="display: flex; gap: 4px">
+                              <span class="priority-badge priority-high">
+                                Alto
+                              </span>
+                              <span class="status-badge status-new">Nuevo</span>
+                            </div>
+                          </div>
+                          <div class="ticket-title">
+                            Acceso denegado al iniciar sesión
+                          </div>
+                          <div class="ticket-description">
+                            Usuario no puede acceder a su cuenta desde ayer.
+                            Error de autenticación persistente...
+                          </div>
+                          <div class="ticket-meta">
+                            <span>Usuario - M.Garcia</span>
+                          </div>
+                        </div>
+
+                        <div class="ticket-item active" data-ticket="2">
+                          <div class="ticket-header">
+                            <span class="ticket-id">#TK-002</span>
+                            <div style="display: flex; gap: 4px">
+                              <span class="priority-badge priority-medium">
+                                Media
+                              </span>
+                              <span class="status-badge status-new">Nuevo</span>
+                            </div>
+                          </div>
+                          <div class="ticket-title">Error al procesar pago</div>
+                          <div class="ticket-description">
+                            Error interno del servidor al procesar pagos.
+                            Múltiples usuarios afectados...
+                          </div>
+                          <div class="ticket-meta">
+                            <span>Usuario - C.Lopez</span>
+                          </div>
+                        </div>
+
+                        <div class="ticket-item" data-ticket="3">
+                          <div class="ticket-header">
+                            <span class="ticket-id">#TK-003</span>
+                            <div style="display: flex; gap: 4px">
+                              <span class="priority-badge priority-low">
+                                Bajo
+                              </span>
+                              <span class="status-badge status-new">Nuevo</span>
+                            </div>
+                          </div>
+                          <div class="ticket-title">
+                            Agregar funcionalidad para exportar los reportes en
+                            formato de Excel
+                          </div>
+                          <div class="ticket-description">
+                            Solicitud de nueva funcionalidad para exportar
+                            reportes en formato Excel...
+                          </div>
+                          <div class="ticket-meta">
+                            <span>Usuario: A.Martinez</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="ticket-section">
+                        <div class="section-header">
+                          <span>En progreso</span>
+                          <span class="section-count">2</span>
+                        </div>
+
+                        <div class="ticket-item" data-ticket="4">
+                          <div class="ticket-header">
+                            <span class="ticket-id">#TK-004</span>
+                            <div style="display: flex; gap: 4px">
+                              <span class="priority-badge priority-high">
+                                Alto
+                              </span>
+                              <span class="status-badge status-open"
+                                >Abierto</span
+                              >
+                            </div>
+                          </div>
+                          <div class="ticket-title">Base de datos caida</div>
+                          <div class="ticket-description">
+                            Sistema de base de datos no responde. Impacto
+                            crítico en operaciones...
+                          </div>
+                          <div class="ticket-meta">
+                            <span>Agente: R.Silva</span>
+                            <span>Tiempo de resolución - N/A</span>
+                          </div>
+                        </div>
+
+                        <div class="ticket-item" data-ticket="5">
+                          <div class="ticket-header">
+                            <span class="ticket-id">#TK-005</span>
+                            <div style="display: flex; gap: 4px">
+                              <span class="priority-badge priority-medium">
+                                Medio
+                              </span>
+                              <span class="status-badge status-pending">
+                                Pendiente
+                              </span>
+                            </div>
+                          </div>
+                          <div class="ticket-title">
+                            Sugerencia para añadido
+                          </div>
+                          <div class="ticket-description">
+                            Solicitud de filtro por fechas en módulo de
+                            inventarios. Evaluación técnica...
+                          </div>
+                          <div class="ticket-meta">
+                            <span>USER: E.RUIZ</span>
+                            <span>TIME: 2D</span>
+                            <span>MSG: 5</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="ticket-section">
+                        <div class="section-header">
+                          <span>Resueltos</span>
+                          <span class="section-count">1</span>
+                        </div>
+
+                        <div
+                          class="ticket-item"
+                          data-ticket="6"
+                          style="--vt-name: ticket-6"
+                        >
+                          <div class="ticket-header">
+                            <span class="ticket-id">#TK-006</span>
+                            <div style="display: flex; gap: 4px">
+                              <span class="priority-badge priority-low">
+                                Bajo
+                              </span>
+                              <span class="status-badge status-resolved">
+                                Hecho
+                              </span>
+                            </div>
+                          </div>
+                          <div class="ticket-title">Cambio de correo</div>
+                          <div class="ticket-description">
+                            Cambio de correo electrónico en perfil de usuario
+                            completado exitosamente...
+                          </div>
+                          <div class="ticket-meta">
+                            <span>Agente - P.Gomez</span>
+                            <span>Tiempo - 3D</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="right-panel">
+                    <div class="ticket-detail-header">
+                      <div>
+                        <div
+                          style="
+                            color: var(--text-accent);
+                            font-size: 10px;
+                            margin-bottom: 4px;
+                            font-weight: bold;
+                          "
+                        >
+                          Número <span id="current-ticket-id">#TK-002</span>
+                        </div>
+                        <h1
+                          class="ticket-detail-title"
+                          id="current-ticket-title"
+                        >
+                          Error de pago, estado del error 500
+                        </h1>
+                        <div class="ticket-detail-meta">
+                          <span
+                            class="priority-badge priority-medium"
+                            id="current-priority"
+                            >Medio</span
+                          >
+                          <span
+                            class="status-badge status-new"
+                            id="current-status"
+                            >Nuevo</span
+                          >
+                          <span
+                            style="
+                              color: var(--text-accent);
+                              font-size: 10px;
+                              font-weight: bold;
+                            "
+                          >
+                            usuario - <span id="current-user">C.Lopez</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="ticket-detail-content">
+                      <div class="creation-info">
+                        <div
+                          style="
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                          "
+                        >
+                          <span style="font-weight: bold"
+                            >Fecha de creación:</span
+                          >
+                          <div style="font-weight: bold" id="creation-date">
+                            06 SEP 2025 - 12:30
+                          </div>
+                        </div>
+                      </div>
+
+                      <h3 class="section-title">Descripción</h3>
+                      <div class="ticket-body" id="ticket-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Voluptatem, ipsum iusto aliquam minus sit aliquid
+                        perspiciatis fugiat culpa explicabo molestias! Repellat,
+                        necessitatibus accusamus officiis voluptate placeat quia
+                        eveniet sunt possimus?
+                      </div>
+
+                      <div class="responses-section">
+                        <div class="response-tabs">
+                          <button class="response-tab active">
+                            Conversación
+                          </button>
+                        </div>
+
+                        <div id="responses-container">
+                          <div class="response-item user">
+                            <div class="response-avatar user-avatar">CL</div>
+                            <div class="response-content">
+                              <div class="response-header">
+                                <span class="response-author">C.LOPEZ</span>
+                                <span class="response-role">USER</span>
+                                <span class="response-time">06 SEP 12:30</span>
+                              </div>
+                              <span class="response-text">
+                                Ticket creado - Error de pago 500
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="response-input">
+                          <textarea
+                            class="response-textarea"
+                            placeholder="Revisamos el caso..."
+                            id="response-text"
+                          ></textarea>
+                          <div class="response-actions">
+                            <div
+                              style="
+                                display: flex;
+                                gap: 8px;
+                                align-items: center;
+                              "
+                            >
+                              <label
+                                style="
+                                  font-size: 10px;
+                                  color: var(--text-accent);
+                                  font-weight: bold;
+                                "
+                              >
+                                Estado
+                              </label>
+                              <select class="status-select" id="ticket-status">
+                                <option value="nuevo">Nuevo</option>
+                                <option value="abierto">Abierto</option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="resuelto">Resuelto</option>
+                              </select>
+                            </div>
+                            <button class="send-btn">Enviar respuesta</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </article>
           </div>
         </dialog>
@@ -616,6 +924,7 @@
           </button>
         </span>
       </header>
+
       <div class="app">
         <button
           class="ticket-app"
@@ -637,6 +946,7 @@
           </svg>
         </button>
       </div>
+
       <div class="theme-selector">
         <button
           class="theme-toggle"
@@ -665,7 +975,7 @@
         </div>
       </div>
     </div>
-    <!-- Bottom nav for tablet & mobile (visible via CSS media queries) -->
+
     <div class="bottom-nav" role="navigation" aria-label="Acciones">
       <button
         class="ticket-app"
