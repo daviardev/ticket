@@ -1,0 +1,85 @@
+dialog.ticket-modal {
+    margin: auto;
+    padding: 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    max-width: 90%;
+    width: 100%;
+    max-height: 90vh;
+    background: var(--background-primary);
+}
+
+dialog.ticket-modal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+}
+
+.ticket-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.ticket-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ticket-modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.ticket-modal-close {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.ticket-modal-close:hover {
+    color: var(--text-primary);
+}
+
+.ticket-modal-body {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.ticket-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.ticket-info {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.ticket-info span {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Media queries para responsivo */
+@media (min-width: 768px) {
+    dialog.ticket-modal {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .ticket-list .ticket-item {
+        cursor: pointer;
+    }
+}

@@ -4,13 +4,27 @@ const fallbackForm = document.getElementById('fallback-form')
 const messageInput = document.getElementById('message')
 const submitButton = document.getElementById('btn-send')
 
+// Deshabilitar el botón de envío inicialmente
+submitButton.disabled = true
+submitButton.classList.add('btn-disabled')
+
+// Función para validar el mensaje
+function validateMessage() {
+  const isValid = messageInput.value.trim().length > 0
+  submitButton.disabled = !isValid
+  submitButton.classList.toggle('btn-disabled', !isValid)
+  return isValid
+}
+
+// Validar en tiempo real mientras el usuario escribe
+messageInput.addEventListener('input', validateMessage)
+
 // Fallback form elements
 const fallbackSubject = document.getElementById('fallback-subject')
 const fallbackMessage = document.getElementById('fallback-message')
 const fallbackDepartment = document.getElementById('fallback-department')
 const fallbackAgent = document.getElementById('fallback-agent')
 const fallbackPriority = document.getElementById('fallback-priority')
-const fallbackSubmitButton = document.getElementById('fallback-btn-send')
 const fallbackClearButton = document.getElementById('fallback-btn-clear')
 
 // create loader element once and reuse (uses user's animation SVG)
@@ -47,7 +61,12 @@ function hideLoader() {
 form.addEventListener('submit', async (e) => {
   e.preventDefault()
 
-  const message = messageInput.value
+  // Validar antes de enviar
+  if (!validateMessage()) {
+    return
+  }
+
+  const message = messageInput.value.trim()
 
   showLoader()
 
@@ -113,9 +132,9 @@ function createTicketData() {
     asunto: fallbackSubject.value,
     mensaje: fallbackMessage.value,
     prioridad: fallbackPriority.value,
-    departamento: fallbackDepartment.value || 'No especificado',
-    agente: fallbackAgent.value || 'Asignación automática',
-    fechaCreacion: now.toLocaleString('es-ES', {
+    departamento: fallbackDepartment.value || '',
+    agente: fallbackAgent.value || '',
+    fechaCreacion: now.toLocaleString('es-CO', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
