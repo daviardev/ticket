@@ -1,14 +1,13 @@
 <!doctype html>
 <html lang="es-CO">
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>supptick - Inicio</title>
-</head>
-
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/css/responsive-nav.css">
+    <title>supptick - Inicio</title>
+  </head><body>
   <div class="grid-pattern"></div>
   <div class="container">
     <header class="hero">
@@ -27,14 +26,14 @@
       <dialog id="glpi-window">
         <div class="container-glpi-window">
           <aside>
-            <button class="active" data-section="dashboard">
+            <button class="active" data-section="dashboard" data-label="Inicio">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" stroke-width="0"
                 viewBox="0 0 24 24">
                 <path stroke="none"
                   d="M21 20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.49a1 1 0 0 1 .386-.79l8-6.223a1 1 0 0 1 1.228 0l8 6.223a1 1 0 0 1 .386.79V20Zm-10-7v6h2v-6h-2Z" />
               </svg>
             </button>
-            <button data-section="tickets">
+            <button data-section="tickets" data-label="Tickets">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" stroke-width="0"
                 viewBox="0 0 512 512">
                 <path stroke="none"
@@ -589,7 +588,7 @@
       </dialog>
 
       <dialog id="send-ticket-modal" style="max-height: 800px;">
-        <div class="dialog-header">
+        <span class="dialog-header">
           <button class="dialog-close" aria-label="Cerrar" onclick="toggleDialog()">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" stroke-width="0"
               viewBox="0 0 512 512">
@@ -597,7 +596,7 @@
                 d="m289.94 256 95-95A24 24 0 0 0 351 127l-95 95-95-95a24 24 0 0 0-34 34l95 95-95 95a24 24 0 1 0 34 34l95-95 95 95a24 24 0 0 0 34-34z" />
             </svg>
           </button>
-        </div>
+        </span>
         <form id="fallback-form" class="ticket-form">
           <span class="ticket-form-header">
             <h2 class="dialog-title">Completar Información del Ticket</h2>
@@ -625,7 +624,7 @@
             </select>
           </div>
 
-          <div class="field field-agent">
+          <span class="field field-agent">
             <label for="fallback-agent">Agente (opcional)</label>
             <select id="fallback-agent" name="agent">
               <option value="">Asignar automáticamente</option>
@@ -634,9 +633,9 @@
               <option value="carlos-rodriguez">Carlos Rodríguez</option>
               <option value="ana-martinez">Ana Martínez</option>
             </select>
-          </div>
+          </span>
 
-          <div class="field field-priority">
+          <span class="field field-priority">
             <label for="fallback-priority">Prioridad</label>
             <select id="fallback-priority" name="priority" required>
               <option value="">Seleccionar prioridad</option>
@@ -644,16 +643,16 @@
               <option value="media">Media</option>
               <option value="baja">Baja</option>
             </select>
-          </div>
+          </span>
 
-          <div class="form-actions">
+          <span class="form-actions">
             <button type="button" class="btn" id="fallback-btn-clear">
               Limpiar
             </button>
             <button type="submit" class="btn" id="fallback-btn-send">
               Crear Ticket
             </button>
-          </div>
+          </span>
         </form>
       </dialog>
 
