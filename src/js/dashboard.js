@@ -206,7 +206,7 @@ class DashboardManager {
 
   // Trend Chart
   renderTrendChart() {
-    const container = document.querySelector('.tickets-development .chart-container');
+    const container = document.querySelector('.tickets-development');
     if (!container) return;
 
     // Clear previous chart
