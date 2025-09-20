@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./src/css/responsive-nav.css" />
+    <link rel="stylesheet" href="./src/css/style.css" />
     <title>supptick - Inicio</title>
   </head>
   <body>
@@ -123,7 +123,6 @@
                 </div>
 
                 <div class="dashboard-grid">
-                  <!-- Tickets Overview -->
                   <div
                     class="grid-item tickets-overview"
                     style="transform: translateY(0px)"
@@ -190,7 +189,7 @@
                           ></circle>
                         </svg>
                         <div class="chart-center">
-                          <h2>1,244</h2>
+                          <h2></h2>
                           <p>Total</p>
                         </div>
                       </div>
@@ -201,40 +200,38 @@
                           class="legend-color"
                           style="background-color: #ff8800"
                         ></div>
-                        <span>Abierto (561)</span>
+                        <span></span>
                       </div>
                       <div class="legend-item">
                         <div
                           class="legend-color"
                           style="background-color: var(--button-secondary)"
                         ></div>
-                        <span>Resuelto (437)</span>
+                        <span></span>
                       </div>
                       <div class="legend-item">
                         <div
                           class="legend-color"
                           style="background-color: #ffcc00"
                         ></div>
-                        <span>Pendiente (187)</span>
+                        <span></span>
                       </div>
                       <div class="legend-item">
                         <div
                           class="legend-color"
                           style="background-color: #999999"
                         ></div>
-                        <span>Cerrado (62)</span>
+                        <span></span>
                       </div>
                     </div>
                   </div>
 
-                  <!-- Performance Card -->
                   <div
                     class="grid-item performance-card"
                     style="transform: translateY(0px)"
                   >
                     <h3>Porcentaje de resolucion</h3>
-                    <div class="performance-value">85%</div>
-                    <div class="performance-period">Últimas respuestas</div>
+                    <div class="performance-value"></div>
                   </div>
 
                   <!-- New Tickets -->
@@ -243,31 +240,30 @@
                     style="transform: translateY(0px)"
                   >
                     <h3>Incidencias entrantes</h3>
-                    <div class="change-value">+61</div>
+                    <div class="change-value"></div>
                   </div>
 
                   <div class="grid-item progress-card">
                     <div class="progress-item">
                       <div class="progress-label">
                         <span>Tiempo de respuesta</span>
-                        <span>94%</span>
+                        <span></span>
                       </div>
                       <div class="progress-bar">
-                        <div class="progress-fill" style="width: 94%"></div>
+                        <div class="progress-fill"></div>
                       </div>
                     </div>
                     <div class="progress-item">
                       <div class="progress-label">
                         <span>Tiempo de resolución</span>
-                        <span>78%</span>
+                        <span></span>
                       </div>
                       <div class="progress-bar">
-                        <div class="progress-fill" style="width: 78%"></div>
+                        <div class="progress-fill"></div>
                       </div>
                     </div>
                   </div>
 
-                  <!-- Tickets Trend -->
                   <div
                     class="grid-item tickets-development"
                     style="transform: translateY(0px)"
@@ -275,149 +271,12 @@
                     <div class="development-header">
                       <div>
                         <h3>Tendencia</h3>
-                        <div class="development-value">↓ 12%</div>
-                      </div>
-                      <div
-                        style="display: flex; gap: 1rem; align-items: center"
-                      >
-                        <select
-                          style="
-                            background: transparent;
-                            border: 1px solid var(--grid-color);
-                            color: var(--text-primary);
-                            padding: 0.5rem;
-                            border-radius: 6px;
-                          "
-                        >
-                          <option>Últimos 7 días</option>
-                          <option>Últimos 30 días</option>
-                          <option>Últimos 3 meses</option>
-                        </select>
-                        <select
-                          style="
-                            background: transparent;
-                            border: 1px solid var(--grid-color);
-                            color: var(--text-primary);
-                            padding: 0.5rem;
-                            border-radius: 6px;
-                          "
-                        >
-                          <option>Dariamente</option>
-                          <option>Semanalmente</option>
-                          <option>Mensualmente</option>
-                        </select>
+                        <div class="development-value"></div>
                       </div>
                     </div>
-                    <div class="chart-container">
-                      <svg
-                        width="100%"
-                        height="80"
-                        style="position: absolute; top: 0; left: 0"
-                      >
-                        <defs>
-                          <linearGradient
-                            id="ticketGradient"
-                            x1="0%"
-                            y1="0%"
-                            x2="0%"
-                            y2="100%"
-                          >
-                            <stop
-                              offset="0%"
-                              style="
-                                stop-color: var(--button-secondary);
-                                stop-opacity: 0.3;
-                              "
-                            ></stop>
-                            <stop
-                              offset="100%"
-                              style="
-                                stop-color: var(--button-secondary);
-                                stop-opacity: 0;
-                              "
-                            ></stop>
-                          </linearGradient>
-                        </defs>
-                        <polyline
-                          fill="url(#ticketGradient)"
-                          stroke="var(--button-secondary)"
-                          stroke-width="2"
-                          points="0,70 80,65 160,45 240,50 320,40 400,35 480,30 560,25 640,20"
-                        ></polyline>
-                        <polyline
-                          fill="none"
-                          stroke="var(--button-secondary)"
-                          stroke-width="2"
-                          points="0,70 80,65 160,45 240,50 320,40 400,35 480,30 560,25 640,20"
-                        ></polyline>
-                        <!-- Data points -->
-                        <circle
-                          cx="80"
-                          cy="65"
-                          r="3"
-                          fill="var(--button-secondary)"
-                        ></circle>
-                        <circle
-                          cx="160"
-                          cy="45"
-                          r="3"
-                          fill="var(--button-secondary)"
-                        ></circle>
-                        <circle
-                          cx="240"
-                          cy="50"
-                          r="3"
-                          fill="var(--button-secondary)"
-                        ></circle>
-                        <circle
-                          cx="320"
-                          cy="40"
-                          r="3"
-                          fill="var(--button-secondary)"
-                        ></circle>
-                        <circle
-                          cx="400"
-                          cy="35"
-                          r="3"
-                          fill="var(--button-secondary)"
-                        ></circle>
-                        <circle
-                          cx="480"
-                          cy="30"
-                          r="3"
-                          fill="var(--button-secondary)"
-                        ></circle>
-                        <circle
-                          cx="560"
-                          cy="25"
-                          r="3"
-                          fill="var(--button-secondary)"
-                        ></circle>
-                      </svg>
-                      <div
-                        style="
-                          position: absolute;
-                          bottom: 0.5rem;
-                          left: 1rem;
-                          right: 1rem;
-                          display: flex;
-                          justify-content: space-between;
-                          font-size: 0.7rem;
-                          color: var(--text-accent);
-                        "
-                      >
-                        <span>Mon</span>
-                        <span>Tue</span>
-                        <span>Wed</span>
-                        <span>Thu</span>
-                        <span>Fri</span>
-                        <span>Sat</span>
-                        <span>Sun</span>
-                      </div>
-                    </div>
+                    <span class="chart-container"></span>
                   </div>
 
-                  <!-- Priority Issues -->
                   <div class="grid-item priority-issues">
                     <h3>Prioridad de incidencias</h3>
                     <div class="priority-item">
@@ -427,7 +286,7 @@
                           <h4>Critico</h4>
                         </div>
                       </div>
-                      <div class="priority-count" style="color: #ff4444">8</div>
+                      <div class="priority-count" style="color: #ff4444"></div>
                     </div>
                     <div class="priority-item">
                       <div class="priority-info">
@@ -436,20 +295,7 @@
                           <h4>Alto</h4>
                         </div>
                       </div>
-                      <div class="priority-count" style="color: #ff8800">
-                        23
-                      </div>
-                    </div>
-                    <div class="priority-item">
-                      <div class="priority-info">
-                        <div class="priority-icon medium">◐</div>
-                        <div class="priority-details">
-                          <h4>Medio</h4>
-                        </div>
-                      </div>
-                      <div class="priority-count" style="color: #ffcc00">
-                        156
-                      </div>
+                      <div class="priority-count" style="color: #ff8800"></div>
                     </div>
                   </div>
 
@@ -831,19 +677,6 @@
         <button class="theme-option" data-theme="green"></button>
         <button class="theme-option" data-theme="red"></button>
         <button class="theme-option" data-theme="orange"></button>
-      </div>
-    </div>
-
-    <!-- Ticket Detail Modal for Mobile -->
-    <div class="ticket-detail-modal" id="ticketDetailModal">
-      <div class="ticket-detail-modal-content">
-        <div class="modal-header">
-          <div class="modal-title">Detalles del Ticket</div>
-          <button class="modal-close" id="modalCloseBtn">&times;</button>
-        </div>
-        <div class="modal-body" id="modalBody">
-          <!-- Ticket details will be injected here -->
-        </div>
       </div>
     </div>
 
