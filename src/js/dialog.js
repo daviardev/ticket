@@ -76,7 +76,6 @@ export async function toggleDialog(id) {
 
   const dialog = document.getElementById(id)
   if (!dialog) {
-    console.warn(`toggledialog: no se encontró dialog con id="${id}"`)
     return
   }
 

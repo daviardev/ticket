@@ -24,6 +24,18 @@ function saveTicket(ticketData) {
   const tickets = JSON.parse(localStorage.getItem('tickets')) || [];
   tickets.push(ticketData);
   localStorage.setItem('tickets', JSON.stringify(tickets));
+  
+  // Trigger re-render if the renderer is available
+  if (window.ticketRenderer && typeof window.ticketRenderer.renderAllTickets === 'function') {
+    window.ticketRenderer.renderAllTickets();
+  }
+  
+  // Trigger dashboard refresh if available
+  if (window.dashboardManager && typeof window.dashboardManager.refresh === 'function') {
+    setTimeout(() => {
+      window.dashboardManager.refresh();
+    }, 100);
+  }
 }
 
 form.addEventListener('submit', (e) => {
@@ -35,10 +47,20 @@ form.addEventListener('submit', (e) => {
   const agent = agentSelect.value;
   const priority = prioritySelect.value;
 
-  if (!subject || !message || !priority) window.alert('Por favor, complete todos los campos obligatorios.');
+  if (!subject || !message || !priority) {
+    alert('Por favor, complete todos los campos obligatorios.');
+    return;
+  }
 
   const token = generateTicketToken();
   const date = new Date().toISOString();
+
+  // Generate random user
+  const users = [
+    'M.Garcia', 'J.Rodriguez', 'A.Martinez', 'C.Lopez', 'L.Hernandez',
+    'D.Gonzalez', 'S.Perez', 'R.Sanchez', 'N.Ramirez', 'F.Torres'
+  ];
+  const randomUser = users[Math.floor(Math.random() * users.length)];
 
   const ticketData = {
     token,
@@ -47,14 +69,20 @@ form.addEventListener('submit', (e) => {
     department: department || 'Sin asignar',
     agent: agent || 'Sin asignar',
     priority,
-    status: 'Abierto',
+    status: 'nuevo',
+    user: randomUser,
     createdAt: date,
     updatedAt: date
   };
 
   saveTicket(ticketData);
   
-  console.log('Ticket creado:', ticketData);
-  alert(`Ticket creado con éxito. Número de ticket: ${token}`);
+  alert(`Ticket creado con éxito. Número de ticket: ${token.toUpperCase()}`);
   form.reset();
+  
+  // Close dialog
+  const ticketDialog = document.getElementById('send-ticket-modal');
+  if (ticketDialog) {
+    ticketDialog.close();
+  }
 });
