@@ -510,7 +510,6 @@ body {
   background: var(--bg-secondary);
   border: 2px solid var(--grid-color);
   opacity: 0.8;
-  cursor: not-allowed;
 }
 
 #fallback-form .field label {
