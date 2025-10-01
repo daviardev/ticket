@@ -1,23 +1,37 @@
-// Theme Management System
+/**
+ * ==================================================
+ * SISTEMA DE GESTIÓN DE TEMAS
+ * ==================================================
+ * Este archivo maneja el cambio de temas/colores
+ * de la aplicación y guarda la preferencia del usuario
+ * ==================================================
+ */
+
 class ThemeManager {
   constructor() {
+    // Obtener tema guardado o usar 'default' por defecto
     this.currentTheme = localStorage.getItem('ticketdesk-theme') || 'default'
-    this.themeToggle = document.querySelector('.theme-toggle')
-    this.themeOptions = document.querySelector('.theme-options')
-    this.colorOptions = document.querySelectorAll('.theme-option')
-    this.themeSelector = document.querySelector('.theme-selector')
+    
+    // Obtener elementos del DOM relacionados con temas
+    this.themeToggle = document.querySelector('.theme-toggle')      // Botón para abrir selector
+    this.themeOptions = document.querySelector('.theme-options')    // Contenedor de opciones
+    this.colorOptions = document.querySelectorAll('.theme-option')  // Botones de colores
+    this.themeSelector = document.querySelector('.theme-selector')  // Selector completo
 
-    this.init()
+    this.init()  // Inicializar todo
   }
 
+  /**
+   * Inicializa el sistema de temas
+   */
   init() {
-    // Apply saved theme
+    // Aplicar el tema guardado
     this.applyTheme(this.currentTheme)
 
-    // Set up event listeners
+    // Configurar evento para abrir/cerrar selector de temas
     this.themeToggle.addEventListener('click', (e) => {
       e.stopPropagation()
-      this.togglePalette()
+      this.togglePalette()  // Mostrar/ocultar opciones de tema
     })
 
     // Set up color option listeners

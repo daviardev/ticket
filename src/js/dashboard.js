@@ -1,6 +1,5 @@
 import * as d3 from 'd3';
 
-// Dashboard data management
 class DashboardManager {
   constructor() {
     this.tickets = [];
@@ -21,18 +20,15 @@ class DashboardManager {
     this.responses = JSON.parse(localStorage.getItem('ticketResponses')) || [];
   }
 
-  // Tickets Overview - Donut Chart
   renderTicketsOverview() {
     const container = document.querySelector('.tickets-overview .donut-chart');
     if (!container) return;
 
-    // Clear previous chart
     d3.select(container).select('svg').remove();
 
     const statusCounts = this.getStatusCounts();
     const total = this.tickets.length;
 
-    // Update total in center
     const centerElement = container.querySelector('.chart-center h2');
     if (centerElement) centerElement.textContent = total.toLocaleString();
 
@@ -42,18 +38,15 @@ class DashboardManager {
       return;
     }
 
-    // Chart dimensions
     const width = 200;
     const height = 200;
     const radius = Math.min(width, height) / 2 - 20;
     const innerRadius = radius * 0.6;
 
-    // Color scale
     const colorScale = d3.scaleOrdinal()
       .domain(['nuevo', 'abierto', 'pendiente', 'resuelto'])
       .range(['#ff8800', '#ff4444', '#aa00ff', '#00ff00']);
 
-    // Create SVG
     const svg = d3.select(container)
       .append('svg')
       .attr('width', width)
@@ -65,7 +58,6 @@ class DashboardManager {
     const g = svg.append('g')
       .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-    // Prepare data for pie chart
     const pieData = Object.entries(statusCounts).map(([status, count]) => ({
       status,
       count,
@@ -80,7 +72,6 @@ class DashboardManager {
       .innerRadius(innerRadius)
       .outerRadius(radius);
 
-    // Create arcs
     const arcs = g.selectAll('.arc')
       .data(pie(pieData))
       .enter().append('g')
@@ -92,7 +83,6 @@ class DashboardManager {
       .attr('stroke', 'var(--grid-color)')
       .attr('stroke-width', 2);
 
-    // Update legend
     this.updateLegend(statusCounts);
   }
 
@@ -112,7 +102,6 @@ class DashboardManager {
     const g = svg.append('g')
       .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-    // Empty circle
     g.append('circle')
       .attr('r', radius)
       .attr('fill', 'none')
@@ -157,7 +146,6 @@ class DashboardManager {
     performanceElement.textContent = `${percentage}%`;
   }
 
-  // New Tickets Count
   renderNewTicketsCount() {
     const newTicketsElement = document.querySelector('.value-change .change-value');
     if (!newTicketsElement) return;
@@ -178,7 +166,6 @@ class DashboardManager {
     
     if (!progressFill || !progressLabel) return;
 
-    // Calculate response time percentage (tickets with responses)
     const ticketsWithResponses = this.tickets.filter(ticket => 
       this.responses.some(response => response.ticketToken === ticket.token)
     ).length;
@@ -204,12 +191,10 @@ class DashboardManager {
     progressLabel.textContent = `${resolutionPercentage}%`;
   }
 
-  // Trend Chart
   renderTrendChart() {
     const container = document.querySelector('.tickets-development');
     if (!container) return;
 
-    // Clear previous chart
     d3.select(container).select('svg').selectAll('*').remove();
 
     if (this.tickets.length === 0) {
@@ -217,10 +202,8 @@ class DashboardManager {
       return;
     }
 
-    // Get tickets data by day for the last 7 days
     const chartData = this.getTrendData();
     
-    // Update trend percentage
     this.updateTrendPercentage(chartData);
 
     const svg = d3.select(container).select('svg');
@@ -229,7 +212,6 @@ class DashboardManager {
 
     svg.attr('width', width).attr('height', height);
 
-    // Scales
     const xScale = d3.scaleLinear()
       .domain([0, chartData.length - 1])
       .range([20, width - 20]);
@@ -238,26 +220,22 @@ class DashboardManager {
       .domain([0, d3.max(chartData, d => d.count) || 1])
       .range([height - 10, 10]);
 
-    // Line generator
     const line = d3.line()
       .x((d, i) => xScale(i))
       .y(d => yScale(d.count))
       .curve(d3.curveMonotoneX);
 
-    // Area generator for gradient
     const area = d3.area()
       .x((d, i) => xScale(i))
       .y0(height - 10)
       .y1(d => yScale(d.count))
       .curve(d3.curveMonotoneX);
 
-    // Add gradient area
     svg.append('path')
       .datum(chartData)
       .attr('fill', 'url(#ticketGradient)')
       .attr('d', area);
 
-    // Add line
     svg.append('path')
       .datum(chartData)
       .attr('fill', 'none')
@@ -265,7 +243,6 @@ class DashboardManager {
       .attr('stroke-width', 2)
       .attr('d', line);
 
-    // Add data points
     svg.selectAll('.data-point')
       .data(chartData)
       .enter().append('circle')
@@ -325,7 +302,6 @@ class DashboardManager {
 
     svg.selectAll('*').remove();
     
-    // Empty state line
     svg.append('line')
       .attr('x1', 20)
       .attr('y1', height / 2)
@@ -335,30 +311,25 @@ class DashboardManager {
       .attr('stroke-width', 2)
       .attr('stroke-dasharray', '5,5');
 
-    // Update trend to 0%
     const trendElement = document.querySelector('.tickets-development .development-value');
     if (trendElement) trendElement.textContent = '→ 0%';
   }
 
-  // Priority Issues
   renderPriorityIssues() {
     const priorityCounts = this.getPriorityCounts();
     
-    // Update critical (alta priority tickets)
     const criticalElement = document.querySelector('.priority-issues .priority-item:nth-child(1) .priority-count');
     if (criticalElement) {
       criticalElement.textContent = priorityCounts.alta || 0;
       criticalElement.style.color = '#ff4444'; // Critical red
     }
 
-    // Update high (media priority tickets) 
     const highElement = document.querySelector('.priority-issues .priority-item:nth-child(2) .priority-count');
     if (highElement) {
       highElement.textContent = priorityCounts.media || 0;
       highElement.style.color = '#ff8800'; // High orange
     }
 
-    // Update medium (baja priority tickets)
     const mediumElement = document.querySelector('.priority-issues .priority-item:nth-child(3) .priority-count');
     if (mediumElement) {
       mediumElement.textContent = priorityCounts.baja || 0;
@@ -374,12 +345,10 @@ class DashboardManager {
     };
   }
 
-  // Recent Tickets
   renderRecentTickets() {
     const container = document.querySelector('.ticket-cases-container');
     if (!container) return;
 
-    // Clear previous content
     container.innerHTML = '';
 
     if (this.tickets.length === 0) {
@@ -392,7 +361,6 @@ class DashboardManager {
       return;
     }
 
-    // Get last 5 tickets (increased from 3 for better demo)
     const recentTickets = this.tickets
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       .slice(0, 5);
@@ -423,6 +391,51 @@ class DashboardManager {
       </div>
       <div class="ticket-date">${timeAgo}</div>
     `;
+
+    element.addEventListener('click', () => {
+      const tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+      const ticketIndex = tickets.findIndex(t => t.token === ticket.token);
+      
+      if (ticketIndex !== -1) {
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile && typeof window.openTicketModal === 'function') {
+          window.openTicketModal(ticketIndex);
+        } else {
+          const ticketsButton = document.querySelector('[data-section="tickets"]');
+          if (ticketsButton) {
+            ticketsButton.click();
+            
+            setTimeout(() => {
+              if (window.ticketRenderer && typeof window.ticketRenderer.loadTicketDetails === 'function') {
+                window.ticketRenderer.loadTicketDetails(ticketIndex);
+                
+                const ticketItems = document.querySelectorAll('.ticket-item');
+                ticketItems.forEach(item => {
+                  const ticketId = item.querySelector('.ticket-id')?.textContent.replace('#', '').toLowerCase();
+                  if (ticketId === ticket.token) {
+                    item.classList.add('active');
+                  } else {
+                    item.classList.remove('active');
+                  }
+                });
+              }
+            }, 100);
+          }
+        }
+      }
+    });
+
+    element.style.cursor = 'pointer';
+    element.addEventListener('mouseenter', () => {
+      element.style.transform = 'translateY(-2px)';
+      element.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+    });
+    
+    element.addEventListener('mouseleave', () => {
+      element.style.transform = 'translateY(0)';
+      element.style.boxShadow = '';
+    });
 
     return element;
   }
@@ -457,7 +470,6 @@ class DashboardManager {
     return classes[status] || 'status-new';
   }
 
-  // Main render function
   renderAllDashboardElements() {
     this.renderTicketsOverview();
     this.renderPerformanceCard();
@@ -468,25 +480,20 @@ class DashboardManager {
     this.renderRecentTickets();
   }
 
-  // Event listeners
   setupEventListeners() {
-    // Listen for localStorage changes
     window.addEventListener('storage', (e) => {
       if (e.key === 'tickets' || e.key === 'ticketResponses') {
         this.refresh();
       }
     });
 
-    // Listen for custom events
     window.addEventListener('ticketUpdated', () => {
       this.refresh();
     });
 
-    // View all tickets button
     const viewAllButton = document.querySelector('.recent-tickets .view-all');
     if (viewAllButton) {
       viewAllButton.addEventListener('click', () => {
-        // Switch to tickets section
         const ticketsButton = document.querySelector('[data-section="tickets"]');
         if (ticketsButton) {
           ticketsButton.click();
@@ -494,7 +501,6 @@ class DashboardManager {
       });
     }
 
-    // Force refresh every 30 seconds to catch any missed updates
     setInterval(() => {
       if (this.isInitialized) {
         this.refresh();
@@ -502,18 +508,15 @@ class DashboardManager {
     }, 30000);
   }
 
-  // Public method to refresh dashboard
   refresh() {
     this.loadData();
     this.renderAllDashboardElements();
   }
 }
 
-// Initialize dashboard when DOM is loaded
 let dashboardManager;
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Small delay to ensure all elements are rendered
   setTimeout(() => {
     dashboardManager = new DashboardManager();
     window.dashboardManager = dashboardManager;
