@@ -34,6 +34,131 @@
         </span>
 
         <dialog id="glpi-window">
+          <div class="ticket-detail-modal" id="ticket-detail-modal">
+            <div class="ticket-detail-modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title" id="modal-ticket-title">
+                  Detalles del Ticket
+                </h2>
+                <button
+                  class="modal-close"
+                  aria-label="Cerrar"
+                  onclick="closeTicketModal()"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 512 512"
+                  >
+                    <path
+                      stroke="none"
+                      d="m289.94 256 95-95A24 24 0 0 0 351 127l-95 95-95-95a24 24 0 0 0-34 34l95 95-95 95a24 24 0 1 0 34 34l95-95 95 95a24 24 0 0 0 34-34z"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="ticket-detail-header">
+                  <div>
+                    <div
+                      style="
+                        color: var(--text-accent);
+                        font-size: 10px;
+                        margin-bottom: 4px;
+                        font-weight: bold;
+                      "
+                    >
+                      Número <span id="modal-ticket-id"></span>
+                    </div>
+                    <h1
+                      class="ticket-detail-title"
+                      id="modal-ticket-subject"
+                    ></h1>
+                    <div class="ticket-detail-meta">
+                      <span class="priority-badge" id="modal-priority"></span>
+                      <span class="status-badge" id="modal-status"></span>
+                      <span
+                        style="
+                          color: var(--text-accent);
+                          font-size: 10px;
+                          font-weight: bold;
+                        "
+                      >
+                        usuario - <span id="modal-user"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ticket-detail-content">
+                  <div class="creation-info">
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                      "
+                    >
+                      <span style="font-size: 9px; font-weight: bold">
+                        CREADO
+                      </span>
+                      <span
+                        style="font-size: 9px; font-weight: bold"
+                        id="modal-creation-date"
+                      >
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="section-title">Descripción</div>
+                  <div class="ticket-body" id="modal-ticket-body"></div>
+
+                  <div class="responses-section">
+                    <div class="section-title">Conversación</div>
+                    <div id="responses-container-modal"></div>
+
+                    <div class="response-input">
+                      <div class="input-group">
+                        <textarea
+                          id="response-text-modal"
+                          placeholder="Escribe tu respuesta..."
+                          rows="3"
+                          style="resize: none"
+                        ></textarea>
+                        <div class="input-actions">
+                          <select id="ticket-status-modal">
+                            <option value="nuevo">Nuevo</option>
+                            <option value="abierto">Abierto</option>
+                            <option value="pendiente">Pendiente</option>
+                            <option value="resuelto">Resuelto</option>
+                          </select>
+                          <button class="send-btn" id="send-btn-modal">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              width="16"
+                              height="16"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="container-glpi-window">
             <aside>
               <button

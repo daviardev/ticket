@@ -8,6 +8,8 @@
 @import './view-transition.css';
 
 @import './glpi-window.css';
+@import './ticket-modal.css';
+@import './toast.css';
 
 * {
   margin: 0;
@@ -1538,6 +1540,17 @@ dialog .ticket-form {
   text-align: left;
   padding: 0.75rem 0;
   border-bottom: 1px solid var(--grid-color);
+  transition: all 0.2s ease;
+  border-radius: 0.5rem;
+  margin: 0 -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.ticket-cases:hover {
+  background: var(--bg-secondary);
+  transform: translateY(-1px);
+  border-bottom-color: var(--accent-color);
 }
 
 .btn-disabled {
@@ -2023,40 +2036,31 @@ dialog .ticket-form {
   scrollbar-color: var(--accent-color) var(--bg-primary);
 }
 
-/* Ticket Detail Modal for Mobile */
+/* Ticket Detail Modal - FIXED VERSION */
 .ticket-detail-modal {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(0.3rem);
-  z-index: 1000;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000000 !important;
   display: none;
-  opacity: 0;
-  transition: all 0.3s ease;
 }
 
 .ticket-detail-modal.active {
-  display: flex;
-  opacity: 1;
+  display: block !important;
 }
 
 .ticket-detail-modal-content {
   width: 100%;
   height: 100%;
   background: var(--bg-primary);
-  border-radius: 1rem 1rem 0 0;
-  margin-top: 60px;
-  position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-}
-
-.ticket-detail-modal.active .ticket-detail-modal-content {
-  transform: translateY(0);
 }
 
 .modal-header {
@@ -2068,7 +2072,9 @@ dialog .ticket-form {
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1001;
+  flex-shrink: 0;
+  min-height: 60px;
 }
 
 .modal-title {
@@ -2078,19 +2084,33 @@ dialog .ticket-form {
 }
 
 .modal-close {
-  background: none;
-  border: none;
-  color: var(--text-accent);
-  font-size: 1.5rem;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--grid-color);
+  color: var(--text-primary);
+  font-size: 1.2rem;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 0.5rem;
   transition: all 0.2s ease;
+  min-width: 40px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .modal-close:hover {
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
+  background: var(--accent-color);
+  color: var(--button-color);
+  border-color: var(--accent-color);
+  transform: scale(1.05);
+}
+
+.modal-close svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
 }
 
 .modal-body {
@@ -2120,6 +2140,71 @@ dialog .ticket-form {
   border-top: 2px solid var(--grid-color);
   padding: 1rem;
   margin: 0 -1rem -1rem -1rem;
+}
+
+.modal-body .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.modal-body .input-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--grid-color);
+  border-radius: 0.5rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  resize: none;
+}
+
+.modal-body .input-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.modal-body .input-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.modal-body .input-actions select {
+  flex: 1;
+  padding: 0.5rem;
+  border: 2px solid var(--grid-color);
+  border-radius: 0.25rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.modal-body .input-actions .send-btn {
+  background: var(--accent-color);
+  color: var(--button-color);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  transition: background 0.2s ease;
+}
+
+.modal-body .input-actions .send-btn:hover {
+  background: var(--button-secondary);
+}
+
+.modal-body .input-actions .send-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 .modal-body #responses-container-modal {
@@ -2157,17 +2242,139 @@ dialog .ticket-form {
 
 /* Ensure modal is above other content */
 .ticket-detail-modal {
-  z-index: 9999;
+  z-index: 99999 !important;
 }
 
 /* Hide modal in desktop */
 @media (min-width: 769px) {
-  .ticket-detail-modal {
+  #ticket-detail-modal {
     display: none !important;
   }
 }
 
-/* Responsive */
+/* Force modal to be visible on mobile when active */
+@media (max-width: 768px) {
+  #ticket-detail-modal.active {
+    display: flex !important;
+    z-index: 10000 !important;
+  }
+
+  /* Ensure proper mobile modal styling */
+  .ticket-detail-modal {
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  .ticket-detail-modal-content {
+    margin: 0;
+    border-radius: 0;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+
+  .modal-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .modal-body .ticket-detail-content {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-body .responses-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    min-height: 0;
+  }
+
+  .modal-body #responses-container-modal {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding-right: 8px;
+  }
+
+  .modal-body .response-input {
+    flex-shrink: 0;
+    background: var(--bg-secondary);
+    padding: 1rem;
+    margin: 0 -1rem -1rem -1rem;
+    border-top: 2px solid var(--grid-color);
+  }
+
+  .modal-body .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .modal-body .input-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .modal-body #response-text-modal {
+    width: 100%;
+    min-height: 80px;
+    padding: 0.75rem;
+    border: 2px solid var(--grid-color);
+    border-radius: 0.5rem;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    resize: none;
+  }
+
+  .modal-body #response-text-modal:focus {
+    outline: none;
+    border-color: var(--accent-color);
+  }
+
+  .modal-body #ticket-status-modal {
+    padding: 0.5rem;
+    border: 2px solid var(--grid-color);
+    border-radius: 0.5rem;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 12px;
+  }
+
+  .modal-body #send-btn-modal {
+    background: var(--accent-color);
+    color: var(--button-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+
+  .modal-body #send-btn-modal:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+
+  .modal-body #send-btn-modal svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Responsive adjustments for mobile modal */
 @media (max-width: 768px) {
   .left-panel {
     width: 100%;
@@ -2185,6 +2392,78 @@ dialog .ticket-form {
     width: 28px;
     height: 28px;
     font-size: 10px;
+  }
+
+  /* Ensure modal is visible and functional on mobile */
+  .ticket-detail-modal {
+    z-index: 10000;
+  }
+
+  /* Modal adjustments for small screens */
+  .ticket-detail-modal-content {
+    margin-top: 0;
+    border-radius: 0;
+  }
+
+  .modal-header {
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-bottom: 2px solid var(--grid-color);
+    flex-shrink: 0;
+  }
+
+  .modal-title {
+    font-size: 1.1rem;
+  }
+
+  .modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+  }
+
+  .modal-body .ticket-detail-header {
+    padding: 1rem;
+  }
+
+  .modal-body .ticket-detail-content {
+    padding: 1rem;
+  }
+
+  .modal-body .response-input {
+    padding: 1rem;
+    margin: 0;
+    background: var(--bg-primary);
+    border-top: 2px solid var(--grid-color);
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .ticket-detail-modal-content {
+    margin-top: 20px;
+  }
+
+  .modal-header {
+    padding: 0.5rem;
+  }
+
+  .modal-title {
+    font-size: 0.9rem;
+  }
+
+  .modal-body .input-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .modal-body .input-actions select {
+    width: 100%;
+  }
+
+  .modal-body .input-actions .send-btn {
+    width: 100%;
+    height: 45px;
   }
 }
 
