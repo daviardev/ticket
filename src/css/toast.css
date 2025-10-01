@@ -1,0 +1,277 @@
+/**
+ * ==================================================
+ * ESTILOS PARA SISTEMA DE TOASTS PERSONALIZADO
+ * ==================================================
+ * Estilos completamente personalizados para notificaciones
+ * Sin dependencias externas, integrado con el tema
+ * ==================================================
+ */
+
+/* Contenedor principal de toasts */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  max-width: 420px;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* Toast individual */
+.toast {
+  background: var(--card-background);
+  border: 1px solid var(--grid-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 12px;
+  padding: 16px;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  font-family: var(--font-family);
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Estados del toast */
+.toast.toast-show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast.toast-hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Contenido del toast */
+.toast-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* Icono del toast */
+.toast-icon {
+  font-size: 18px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Cuerpo del toast */
+.toast-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Título del toast */
+.toast-title {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+/* Descripción del toast */
+.toast-description {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+/* Botón de cerrar */
+.toast-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  padding: 4px;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-close:hover {
+  opacity: 1;
+  background: var(--hover-color);
+}
+
+/* Tipos de toast */
+
+/* Toast de éxito */
+.toast-success {
+  border-left: 4px solid #00ff00;
+}
+
+.toast-success .toast-icon {
+  color: #00ff00;
+}
+
+/* Toast de error */
+.toast-error {
+  border-left: 4px solid #ff4444;
+}
+
+.toast-error .toast-icon {
+  color: #ff4444;
+}
+
+/* Toast de advertencia */
+.toast-warning {
+  border-left: 4px solid #ff8800;
+}
+
+.toast-warning .toast-icon {
+  color: #ff8800;
+}
+
+/* Toast de información */
+.toast-info {
+  border-left: 4px solid var(--button-secondary);
+}
+
+.toast-info .toast-icon {
+  color: var(--button-secondary);
+}
+
+/* Toast de carga */
+.toast-loading {
+  border-left: 4px solid #aa00ff;
+}
+
+.toast-loading .toast-icon {
+  color: #aa00ff;
+  animation: toast-spin 1s linear infinite;
+}
+
+/* Animación de carga */
+@keyframes toast-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Efectos hover */
+.toast:hover {
+  transform: translateX(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.toast.toast-show:hover {
+  transform: translateX(-5px);
+}
+
+/* Adaptaciones para temas */
+
+/* Tema oscuro */
+.theme-dark .toast {
+  background: rgba(30, 30, 30, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.theme-dark .toast-title {
+  color: #ffffff;
+}
+
+.theme-dark .toast-description {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-dark .toast-close {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .toast-container {
+    left: 16px;
+    right: 16px;
+    top: 16px;
+    max-width: none;
+  }
+
+  .toast {
+    margin-bottom: 8px;
+    padding: 12px;
+  }
+
+  .toast-content {
+    gap: 8px;
+  }
+
+  .toast-title {
+    font-size: 13px;
+  }
+
+  .toast-description {
+    font-size: 11px;
+  }
+}
+
+/* Animaciones adicionales */
+.toast:not(.toast-show):not(.toast-hide) {
+  animation: toast-slide-in 0.3s ease-out forwards;
+}
+
+@keyframes toast-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Efecto de progreso para toasts con duración */
+.toast::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--button-secondary) 50%,
+    transparent 100%
+  );
+  width: 0;
+  transition: width linear;
+}
+
+.toast.toast-show::before {
+  animation: toast-progress var(--toast-duration, 4s) linear forwards;
+}
+
+@keyframes toast-progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
